@@ -108,45 +108,58 @@ class Home extends StatelessWidget {
               ),
               SizedBox(height: 10),
               ...List.generate(controller.TopdataDoctor.length, (index) {
-                return Card(
-                  color: AppColor.white,
-                  margin: EdgeInsets.symmetric(vertical: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 150,
-                        width: 120,
-                        padding: EdgeInsets.all(8),
-                        child: Image.asset(
-                          controller.TopdataDoctor[index]['image'],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            title: Text(
-                              controller.TopdataDoctor[index]['name'],
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle:
-                                Text(controller.TopdataDoctor[index]['type']),
+                return InkWell(
+                  onTap: () {
+                    controller.goToDoctorDetails(
+                        controller.TopdataDoctor[index]['image'],
+                        controller.TopdataDoctor[index]['name'],
+                        controller.TopdataDoctor[index]['type']);
+                  },
+                  child: Card(
+                    color: AppColor.white,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 150,
+                          width: 120,
+                          padding: EdgeInsets.all(8),
+                          child: Image.asset(
+                            controller.TopdataDoctor[index]['image'],
+                            fit: BoxFit.cover,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                              margin: EdgeInsets.only(left: 10,right: 10),
-                              child: Icon(Icons.star,color: Colors.yellow,)),
-                              Text("Reviews (${controller.TopdataDoctor[index]['Review']}) ")
-                            ],
-                          )
-                        ],
-                      )),
-                    ],
+                        ),
+                        Expanded(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                controller.TopdataDoctor[index]['name'],
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle:
+                                  Text(controller.TopdataDoctor[index]['type']),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                    margin:
+                                        EdgeInsets.only(left: 10, right: 10),
+                                    child: Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                    )),
+                                Text(
+                                    "Reviews (${controller.TopdataDoctor[index]['Review']}) ")
+                              ],
+                            )
+                          ],
+                        )),
+                      ],
+                    ),
                   ),
                 );
               }),

@@ -18,8 +18,8 @@ class Profile extends StatelessWidget {
                   children: [
                     // Background container with primary color
                     Container(
-                      height: 300,
                       color: AppColor.primaycolor,
+                      height: 300,
                     ),
                     // Profile content with ListView
                     ListView(
@@ -35,7 +35,7 @@ class Profile extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          color: AppColor.primaycolor,
+                          //   color: AppColor.primaycolor,
                           child: ListTile(
                             title: Center(
                               child: Text(
@@ -48,13 +48,13 @@ class Profile extends StatelessWidget {
                               child: Text(
                                 "22 years old | Male",
                                 style: TextStyle(
-                                    color: AppColor.white, fontSize: 16),
+                                    color: AppColor.white, fontSize: 15),
                               ),
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 90,
+                          height: 70,
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 30),
@@ -78,20 +78,35 @@ class Profile extends StatelessWidget {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(entry.value,
-                                            color: AppColor.primaycolor),
-                                        SizedBox(
-                                            width:
-                                                10), // Add space between icon and text
-                                        Text(
-                                          entry.key,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.black),
-                                        ),
-                                      ],
+                                    child: Center(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              controller.goToLogin();
+                                            },
+                                            child: Icon(entry.value,
+                                                color: AppColor.primaycolor),
+                                          ),
+
+                                          SizedBox(
+                                              width:
+                                                  10), // Add space between icon and text
+
+                                          InkWell(
+                                            onTap: () {
+                                              controller.goToLogin();
+                                            },
+                                            child: Text(
+                                              entry.key,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.black),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 }).toList(),
