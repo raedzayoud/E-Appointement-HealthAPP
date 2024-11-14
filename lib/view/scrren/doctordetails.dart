@@ -41,13 +41,16 @@ class Doctordetails extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Center(
-              child: Container(
-                //color: Colors.red,
-                height: 150,
-                child: Transform.scale(
-                    scale: 1.4,
-                    child: ClipOval(child: Image.asset(controller.urlImage))),
+            Hero(
+              tag: 'doctorImage_${controller.name}',
+              child: Center(
+                child: Container(
+                  //color: Colors.red,
+                  height: 150,
+                  child: Transform.scale(
+                      scale: 1.4,
+                      child: ClipOval(child: Image.asset(controller.urlImage))),
+                ),
               ),
             ),
             SizedBox(
@@ -68,7 +71,7 @@ class Doctordetails extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: AppColor.secondcolor,
+                      color: AppColor.primaycolor,
                     ),
                     height: 100,
                     width: 100,
@@ -87,7 +90,7 @@ class Doctordetails extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: AppColor.secondcolor,
+                      color: AppColor.primaycolor,
                     ),
                     height: 100,
                     width: 100,
@@ -107,7 +110,7 @@ class Doctordetails extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: AppColor.secondcolor,
+                      color: AppColor.primaycolor,
                     ),
                     height: 100,
                     width: 100,
@@ -150,7 +153,7 @@ class Doctordetails extends StatelessWidget {
             Center(
               child: Container(
                   decoration: BoxDecoration(
-                      color: AppColor.secondcolor,
+                      color: AppColor.primaycolor,
                       borderRadius: BorderRadius.circular(10)),
                   width: double.infinity,
                   margin: EdgeInsets.only(bottom: 10),
@@ -160,7 +163,9 @@ class Doctordetails extends StatelessWidget {
                         style: TextStyle(
                             color: AppColor.white, fontWeight: FontWeight.bold),
                       ),
-                      onPressed: () {})),
+                      onPressed: () {
+                        controller.goToBookAppointements();
+                      })),
             )
           ],
         ),

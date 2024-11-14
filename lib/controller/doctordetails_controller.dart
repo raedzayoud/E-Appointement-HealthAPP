@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:health_app/core/constant/routes.dart';
 
 class DoctordetailsController extends GetxController {
   //when i use the database use the doctormodel insetead of these variables
@@ -20,4 +21,9 @@ class DoctordetailsController extends GetxController {
     type = Get.arguments['type'];
     super.onInit();
   }
+  
+  void goToBookAppointements(){
+    Get.toNamed(AppRoutes.appoitementsSchedule);
+  }
+
 }

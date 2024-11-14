@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/home_controller.dart';
 import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/core/constant/imageassets.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,11 +15,15 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: AppColor.white,
           title: Text(
-            "Zayoud Raed ",
+            "Zayoud Raed",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+            Container(
+              child: Transform.scale
+              (scale: 1.0,
+                child: ClipOval(child: Image.asset(AppImageassets.profile))),
+            ),
           ],
         ),
         body: Container(
@@ -77,8 +82,7 @@ class Home extends StatelessWidget {
                           SizedBox(width: 8),
                           Text(
                             category,
-                            style:
-                                TextStyle(fontSize: 14, color: AppColor.white),
+                            style: TextStyle(fontSize: 14, color: AppColor.white),
                           ),
                         ],
                       ),
@@ -108,12 +112,14 @@ class Home extends StatelessWidget {
               ),
               SizedBox(height: 10),
               ...List.generate(controller.TopdataDoctor.length, (index) {
+                final doctor = controller.TopdataDoctor[index];
                 return InkWell(
                   onTap: () {
                     controller.goToDoctorDetails(
-                        controller.TopdataDoctor[index]['image'],
-                        controller.TopdataDoctor[index]['name'],
-                        controller.TopdataDoctor[index]['type']);
+                      doctor['image'],
+                      doctor['name'],
+                      doctor['type'],
+                    );
                   },
                   child: Card(
                     color: AppColor.white,
@@ -121,43 +127,42 @@ class Home extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 150,
-                          width: 120,
-                          padding: EdgeInsets.all(8),
-                          child: Image.asset(
-                            controller.TopdataDoctor[index]['image'],
-                            fit: BoxFit.cover,
+                        Hero(
+                          tag: 'doctorImage_${doctor['name']}',
+                          child: Container(
+                            height: 150,
+                            width: 120,
+                            padding: EdgeInsets.all(8),
+                            child: Image.asset(
+                              doctor['image'],
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListTile(
-                              title: Text(
-                                controller.TopdataDoctor[index]['name'],
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                title: Text(
+                                 "Dr."+ doctor['name'],
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(doctor['type']),
                               ),
-                              subtitle:
-                                  Text(controller.TopdataDoctor[index]['type']),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                    margin:
-                                        EdgeInsets.only(left: 10, right: 10),
-                                    child: Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                    )),
-                                Text(
-                                    "Reviews (${controller.TopdataDoctor[index]['Review']}) ")
-                              ],
-                            )
-                          ],
-                        )),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 10, right: 10),
+                                    child: Icon(Icons.star, color: Colors.yellow),
+                                  ),
+                                  Text("Reviews (${doctor['Review']})"),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
