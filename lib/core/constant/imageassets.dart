@@ -1,6 +1,6 @@
 class AppImageassets {
   static const String rootImages = "images/assets";
- // static const String rootLottie = "assets/lottie";
+  static const String rootLottie = "images/lottie";
 
    static const String logohealth = "$rootImages/logohealth.png";
    static const String google = "$rootImages/google.png";
@@ -16,5 +16,12 @@ class AppImageassets {
    static const String doctor9 = "$rootImages/doctor7.png";
    static const String secondlogo = "$rootImages/logo.png";
    static const String profile = "$rootImages/raed.jpg";
+   //lottie
+   static const String loading = "$rootLottie/loading.json";
+   static const String nodata = "$rootLottie/nodata.json";
+   static const String nointernet = "$rootLottie/nointernet.json";
+   static const String serverfailed = "$rootLottie/seveurecpetion.json";
+   
+
  
 }

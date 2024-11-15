@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/appoitementsdoctor_controller.dart';
 import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Appointementsdoctor extends StatelessWidget {
@@ -12,10 +13,7 @@ class Appointementsdoctor extends StatelessWidget {
     Get.put(AppoitementsdoctorController());
     return GetBuilder<AppoitementsdoctorController>(
         builder: (controller) => Scaffold(
-              appBar: AppBar(
-                title: Text('Appointment'),
-                centerTitle: true,
-              ),
+              appBar: Customappar(name: "Appointement",),
               body: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
@@ -32,13 +30,12 @@ class Appointementsdoctor extends StatelessWidget {
                       },
                       calendarFormat: CalendarFormat.month,
                       calendarBuilders: CalendarBuilders(
-                        
-                        selectedBuilder: (context, date,_) {
+                        selectedBuilder: (context, date, _) {
                           //reduce the size
                           return Container(
                             width: 30,
                             decoration: BoxDecoration(
-                              color: Colors.green, 
+                              color: Colors.green,
                               shape: BoxShape.circle,
                             ),
                             alignment: Alignment.center,
