@@ -7,6 +7,7 @@ class ProfileController extends GetxController{
   Map<String,IconData>mp={
     "Profile":Icons.person_2_outlined,
     "Appointement History":Icons.history_edu_outlined,
+    "Contact Us":Icons.contacts_outlined,
     "Logout":Icons.logout_outlined,
   };
 

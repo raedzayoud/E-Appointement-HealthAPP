@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/core/class/statusrequest.dart';
+import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/imageassets.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:lottie/lottie.dart' as lottie;
 class Handlingdataview extends StatelessWidget {
   final StatusRequest statusRequest;
   final Widget widget;
@@ -49,7 +50,19 @@ class HandlingdataRequest extends StatelessWidget {
   Widget build(BuildContext context) {
     if (statusRequest == StatusRequest.loading) {
       return Center(
-        child: Lottie.asset(AppImageassets.loading, width: 250, height: 250),
+        child: Lottie.asset(
+          AppImageassets.loading,
+          width: 250,
+          height: 250,
+          delegates: lottie.LottieDelegates(
+            values: [
+              ValueDelegate.color(
+                const ['**'], 
+                value: AppColor.primaycolor,
+              ),
+            ],
+          ),
+        ),
       );
     } else if (statusRequest == StatusRequest.offlinefailure) {
       return Center(

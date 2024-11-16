@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:health_app/controller/profile_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/imageassets.dart';
+import 'package:health_app/view/widget/profile/customname.dart';
+import 'package:health_app/view/widget/profile/parametere.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -34,86 +36,11 @@ class Profile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          //   color: AppColor.primaycolor,
-                          child: ListTile(
-                            title: Center(
-                              child: Text(
-                                "Zayoud Raed",
-                                style: TextStyle(
-                                    color: AppColor.white, fontSize: 18),
-                              ),
-                            ),
-                            subtitle: Center(
-                              child: Text(
-                                "22 years old | Male",
-                                style: TextStyle(
-                                    color: AppColor.white, fontSize: 15),
-                              ),
-                            ),
-                          ),
-                        ),
+                        Customname(ageandgendor: "22 years old | Male" ,username: "Zayoud Raed",),
                         SizedBox(
                           height: 70,
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          height: 250,
-                          child: Card(
-                            color: AppColor.white,
-                            child: ListView(
-                              children: [
-                                Container(
-                                    padding: EdgeInsets.all(20),
-                                    child: Text(
-                                      "Profile",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    )),
-                                Divider(
-                                  thickness: 0.5,
-                                ),
-                                ...controller.mp.entries.map((entry) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              controller.goToLogin();
-                                            },
-                                            child: Icon(entry.value,
-                                                color: AppColor.primaycolor),
-                                          ),
-
-                                          SizedBox(
-                                              width:
-                                                  10), // Add space between icon and text
-
-                                          InkWell(
-                                            onTap: () {
-                                              controller.goToLogin();
-                                            },
-                                            child: Text(
-                                              entry.key,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              ],
-                            ),
-                          ),
-                        ),
+                        Parametere(),
                       ],
                     ),
                   ],

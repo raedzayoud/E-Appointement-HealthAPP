@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:health_app/controller/doctordetails_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
+import 'package:health_app/view/widget/doctordetails/custombutton.dart';
 import 'package:health_app/view/widget/doctordetails/custominfodoctor.dart';
 import 'package:hash_cached_image/hash_cached_image.dart';
 
@@ -13,7 +14,10 @@ class Doctordetails extends StatelessWidget {
   Widget build(BuildContext context) {
     DoctordetailsController controller = Get.put(DoctordetailsController());
     return Scaffold(
-      appBar: Customappar(name: "Doctor Details",isAction: true,),
+      appBar: Customappar(
+        name: "Doctor Details",
+        isAction: true,
+      ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
         color: AppColor.white,
@@ -31,7 +35,10 @@ class Doctordetails extends StatelessWidget {
                   height: 150,
                   child: Transform.scale(
                       scale: 1.4,
-                      child: ClipOval(child: HashCachedImage(imageUrl:controller.urlImage ,))),
+                      child: ClipOval(
+                          child: HashCachedImage(
+                        imageUrl: controller.urlImage,
+                      ))),
                 ),
               ),
             ),
@@ -80,22 +87,15 @@ class Doctordetails extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColor.primaycolor,
-                      borderRadius: BorderRadius.circular(10)),
-                  width: double.infinity,
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: MaterialButton(
-                      child: Text(
-                        "Book Appointements",
-                        style: TextStyle(
-                            color: AppColor.white, fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        controller.goToBookAppointements();
-                      })),
+            Custombutton(
+              text: "See the comment of others client ",
+              onPressed: () {},
+            ),
+            Custombutton(
+              text: "Book Appointements",
+              onPressed: () {
+                controller.goToBookAppointements();
+              },
             )
           ],
         ),
