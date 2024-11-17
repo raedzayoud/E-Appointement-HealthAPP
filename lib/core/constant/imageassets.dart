@@ -21,6 +21,7 @@ class AppImageassets {
    static const String nodata = "$rootLottie/nodata.json";
    static const String nointernet = "$rootLottie/nointernet.json";
    static const String serverfailed = "$rootLottie/seveurecpetion.json";
+   static const String success = "$rootLottie/success.json";
    
 
  
