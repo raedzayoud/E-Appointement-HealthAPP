@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Curstomtextformauth extends StatelessWidget {
   final String hintText;
   final String label;
-  final IconData iconData;
+   IconData iconData;
   TextEditingController? mycontroller;
   final String? Function(String?)? validator;
   bool? obscturetext;
@@ -13,7 +13,7 @@ class Curstomtextformauth extends StatelessWidget {
       {super.key,
       required this.hintText,
       required this.label,
-      required this.iconData,
+       this.iconData=Icons.abc,
        this.mycontroller,
       required this.validator,
       this.type = TextInputType.text,

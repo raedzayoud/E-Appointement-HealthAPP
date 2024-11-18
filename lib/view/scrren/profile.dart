@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 import 'package:health_app/controller/profile_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/imageassets.dart';
+import 'package:health_app/linkapi.dart';
 import 'package:health_app/view/widget/profile/customname.dart';
 import 'package:health_app/view/widget/profile/parametere.dart';
+import 'package:hash_cached_image/hash_cached_image.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -27,16 +29,37 @@ class Profile extends StatelessWidget {
                     ListView(
                       children: [
                         SizedBox(
-                            height: 40), // Space for the background container
+                            height: 20), // Space for the background container
                         Center(
                           child: Container(
-                            height: 130,
-                            child: ClipOval(
-                              child: Image.asset(AppImageassets.profile),
+                            height: 160,
+                            width: 160,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.12),
+                                  spreadRadius: 1,
+                                  blurRadius: 8,
+                                  offset: Offset(0, 4), // Shadow position
+                                ),
+                              ],
+                            ),
+                            padding: EdgeInsets.all(8),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: HashCachedImage(
+                                imageUrl:
+                                    "${AppLinkApi.imagesuser}/${controller.image}",
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
-                        Customname(ageandgendor: "22 years old | Male" ,username: "Zayoud Raed",),
+                        Customname(
+                          ageandgendor: "${controller.age} years old",
+                          username: "${controller.name}",
+                        ),
                         SizedBox(
                           height: 70,
                         ),

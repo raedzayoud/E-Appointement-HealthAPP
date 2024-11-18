@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/binding.dart';
+import 'package:health_app/core/services/services.dart';
 import 'package:health_app/routes.dart';
 import 'package:health_app/view/scrren/auth/login.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialServices();
   runApp(const MyApp());
 }
 
