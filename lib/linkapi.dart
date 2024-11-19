@@ -14,6 +14,12 @@ class AppLinkApi {
   static String signup = "$linkServeurName/auth/signup.php";
   static String login = "$linkServeurName/auth/login.php";
 
+  //appointement
+
+  static String addappointement = "$linkServeurName/appointement/add.php";
+  static String viewappointement = "$linkServeurName/appointement/viewupcoming.php";
+  
+
 
   
   }

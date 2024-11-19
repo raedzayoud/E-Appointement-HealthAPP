@@ -105,11 +105,8 @@ class Home extends StatelessWidget {
                         final doctor = controller.TopdataDoctor[index];
                         return InkWell(
                           onTap: () {
-                            controller.goToDoctorDetails(
-                              "${AppLinkApi.imagesdoctor}/${doctor.doctorImage!}",
-                              doctor.doctorUsername!,
-                              doctor.doctorType!,
-                            );
+                            controller
+                                .goToDoctorDetails(doctor);
                           },
                           child: Card(
                             color: AppColor.white,

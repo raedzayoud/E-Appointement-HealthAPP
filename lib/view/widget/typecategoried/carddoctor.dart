@@ -14,10 +14,7 @@ class Carddoctor extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        controller.goToDoctorDetails(
-            "${AppLinkApi.imagesdoctor}/${doctor.doctorImage!}",
-            doctor.doctorUsername!,
-            doctor.doctorType!);
+        controller.goToDoctorDetails(doctor);
       },
       child: Container(
         height: 150,

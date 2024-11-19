@@ -25,11 +25,9 @@ class HomeController extends GetxController {
   DoctorData doctorData = DoctorData(Get.find());
   Doctormodel? doctormodel;
 
-  void goToDoctorDetails(String image, String name, String type) {
+  void goToDoctorDetails(Doctormodel doctormodel) {
     Get.toNamed(AppRoutes.doctordetails, arguments: {
-      "image": image,
-      "name": name,
-      "type": type,
+      "doctormodel":doctormodel
     });
   }
 

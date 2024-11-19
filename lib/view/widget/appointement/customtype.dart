@@ -27,7 +27,7 @@ class Customtype extends GetView<AppoitementsController> {
             child: Text(
               type,
               style: TextStyle(
-                  color: controller.type == type ? AppColor.white : AppColor.black),
+                  color: controller.type == type ? AppColor.white : AppColor.black,fontWeight: FontWeight.bold),
             ),
           ),
         ],

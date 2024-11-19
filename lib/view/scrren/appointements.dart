@@ -34,19 +34,23 @@ class Appointements extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Customtype(
-                                type: "Upcoming",
-                              ),
-                              Customtype(
-                                type: "Completed",
-                              ),
-                              Customtype(
-                                type: "Cancelled",
-                              ),
-                            ]),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          
+                          child: Row(
+                          children: [
+                            SizedBox(width: 20,),
+                            Customtype(
+                              type: "Upcoming",
+                            ),
+                            Customtype(
+                              type: "Completed",
+                            ),
+                            Customtype(
+                              type: "Cancelled",
+                            ),
+                          ]),
+                        ),
                         getTabContent(controller.type, controller),
                       ],
                     ),

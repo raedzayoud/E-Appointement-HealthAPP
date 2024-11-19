@@ -100,7 +100,17 @@ class Appointementsdoctor extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20)),
                         child: MaterialButton(
                           onPressed: () {
-                            controller.MakeAppointement();
+                            if (controller.selectedTime == null) {
+                              Get.defaultDialog(
+                                  title: "Warning",
+                                  content: Text("Please choose a Time for the appointement "),
+                                  titleStyle: TextStyle(color: AppColor.red));
+                              return;
+                            }
+                            controller.MakeAppointement(
+                                controller.doctormodel!.doctorId.toString(),
+                                controller.selectedDay,
+                                controller.selectedTime!);
                           },
                           child: Text(
                             'Make Appointment',

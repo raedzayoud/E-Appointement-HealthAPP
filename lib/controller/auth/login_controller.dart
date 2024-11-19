@@ -39,7 +39,7 @@ class LoginController extends GetxController {
           services.sharedPreferences
               .setString("image", response['data']['users_image'].toString());
           services.sharedPreferences.setString("step", "2");
-          Get.offNamed(AppRoutes.homescrren);
+          Get.offAllNamed(AppRoutes.homescrren);
         } else {
           Get.defaultDialog(
               title: "Warning",

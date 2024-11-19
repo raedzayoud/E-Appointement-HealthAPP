@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/doctordetails_controller.dart';
 import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/linkapi.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
 import 'package:health_app/view/widget/doctordetails/custombutton.dart';
 import 'package:health_app/view/widget/doctordetails/custominfodoctor.dart';
@@ -28,7 +29,7 @@ class Doctordetails extends StatelessWidget {
               height: 20,
             ),
             Hero(
-              tag: 'doctorImage_${controller.name}',
+              tag: 'doctorImage_${controller.doctormodel!.doctorUsername}',
               child: Center(
                 child: Container(
                   //color: Colors.red,
@@ -37,7 +38,7 @@ class Doctordetails extends StatelessWidget {
                       scale: 1.4,
                       child: ClipOval(
                           child: HashCachedImage(
-                        imageUrl: controller.urlImage,
+                        imageUrl: "${AppLinkApi.imagesdoctor}/${controller.doctormodel!.doctorImage!}",
                       ))),
                 ),
               ),
@@ -47,7 +48,7 @@ class Doctordetails extends StatelessWidget {
             ),
             Center(
                 child: Text(
-              "Dr.${controller.name}",
+              "Dr.${controller.doctormodel!.doctorUsername!}",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             )),
             SizedBox(
@@ -82,7 +83,7 @@ class Doctordetails extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 10, left: 10),
               child: Text(
-                "I am ${controller.type} Specialist",
+                "I am ${controller.doctormodel!.doctorType} Specialist",
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
