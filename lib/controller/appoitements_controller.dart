@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:health_app/core/class/statusrequest.dart';
+import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/function/handledata.dart';
 import 'package:health_app/core/services/services.dart';
 import 'package:health_app/data/datasource/remote/appointement_data.dart';
@@ -15,15 +18,17 @@ class AppoitementsController extends GetxController {
   AppointementData appointementData = AppointementData(Get.find());
   MyServices myServices = Get.find();
   List<appointementmodel> list = [];
+  List<appointementmodel> listcancelled = [];
 
   void clickonthis(String val) {
     type = val;
     update();
   }
 
-  void LoadDataUpcoming() async {
+  LoadDataUpcoming() async {
     statusRequest = StatusRequest.loading;
     update();
+    list.clear();
     var response = await appointementData
         .view(myServices.sharedPreferences.getString("id")!);
     if (response == null) {
@@ -41,9 +46,155 @@ class AppoitementsController extends GetxController {
     update();
   }
 
+  CancelAppointement(String appointementId) {
+    Get.defaultDialog(
+      title: "Warning",
+      titleStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+        color: AppColor.red,
+      ),
+      middleText: "Are you sure you want to delete this appointment?",
+      middleTextStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 13,
+      ),
+      textConfirm: "Yes",
+      textCancel: "No",
+      confirmTextColor: Colors.white,
+      cancelTextColor: AppColor.black,
+      buttonColor: AppColor.red,
+      onConfirm: () async {
+        try {
+          // Show loading indicator
+          statusRequest = StatusRequest.loading;
+          update();
+
+          // Perform the cancellation operation
+          await appointementData.cancelled(
+            myServices.sharedPreferences.getString("id")!,
+            appointementId,
+          );
+
+          // Update status to success
+          statusRequest = StatusRequest.success;
+          update();
+          await LoadDataUpcoming();
+
+          await viewCancelled();
+
+          // Close the dialogs
+          Get.back(); // Close the confirmation dialog
+        } catch (e) {
+          // Handle errors
+          statusRequest = StatusRequest.failed;
+          update();
+          Get.snackbar(
+            "Error",
+            "Failed to cancel the appointment: $e",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        } finally {
+          Get.back(); // Ensure the confirmation dialog is closed
+        }
+      },
+      onCancel: () {
+        Get.back(); // Close the dialog
+      },
+    );
+  }
+
+  viewCancelled() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    listcancelled.clear();
+    var response = await appointementData
+        .viewcancelled(myServices.sharedPreferences.getString("id")!);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        List data = response['data'];
+        listcancelled = data.map((e) => appointementmodel.fromJson(e)).toList();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
+  }
+
+  bool isCompleted(String appointementDate, String appointementHeure) {
+    // Parse the appointment date
+    DateTime appointementDateTime = DateTime.parse(appointementDate);
+
+    // Handle time parsing with AM/PM format
+    bool isPM = appointementHeure.contains("PM");
+    List<String> timeParts = appointementHeure
+        .replaceAll("AM", "")
+        .replaceAll("PM", "")
+        .trim()
+        .split(':');
+    int hours = int.parse(timeParts[0]);
+    int minutes = int.parse(timeParts[1]);
+
+    // Convert to 24-hour format if necessary
+    if (isPM && hours < 12) {
+      hours += 12; // Convert PM hours to 24-hour format
+    } else if (!isPM && hours == 12) {
+      hours = 0; // Convert 12 AM to 0 hours (midnight)
+    }
+
+    // Add the time to the date
+    appointementDateTime = appointementDateTime.add(
+      Duration(
+        hours: hours,
+        minutes: minutes,
+      ),
+    );
+
+    // Get the current date and time
+    DateTime now = DateTime.now();
+
+    // Check if the appointment is completed
+    if (now.isAfter(appointementDateTime)) {
+      Get.defaultDialog(
+        title: "Success",
+        titleStyle: TextStyle(
+          color: AppColor.red,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        content: Text(
+          "The meeting has taken place.",
+          style: TextStyle(fontSize: 15),
+        ),
+      );
+      return true;
+    } else {
+      Get.defaultDialog(
+        title: "Warning",
+        titleStyle: TextStyle(
+          color: AppColor.red,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        content: Text(
+          "The meeting has not yet taken place.",
+          style: TextStyle(fontSize: 15),
+        ),
+      );
+      return false;
+    }
+  }
+
   @override
   void onInit() {
     LoadDataUpcoming();
+    viewCancelled();
     super.onInit();
   }
 }

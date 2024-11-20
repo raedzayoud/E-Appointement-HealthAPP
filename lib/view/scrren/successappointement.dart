@@ -11,7 +11,7 @@ class Successappointement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Automatically navigate to the home page after a delay
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Get.offAllNamed(AppRoutes.homescrren); // Replaces the current route with Home
     });
 

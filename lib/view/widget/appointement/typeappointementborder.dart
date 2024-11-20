@@ -29,7 +29,8 @@ class Typeappointementborder extends GetView<AppoitementsController> {
               ListView.builder(
                 // Make ListView shrink to fit the content
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(), // Prevent inner scrolling
+                physics:
+                    NeverScrollableScrollPhysics(), // Prevent inner scrolling
                 itemCount: controller.list.length,
                 itemBuilder: (context, index) {
                   return Container(
@@ -63,11 +64,11 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                               child: ListTile(
                                 title: Text(
                                   "${controller.list[index].doctorUsername}",
-                                  style:
-                                      const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                subtitle:
-                                    Text("${controller.list[index].doctorType}"),
+                                subtitle: Text(
+                                    "${controller.list[index].doctorType}"),
                               ),
                             ),
                           ],
@@ -94,7 +95,9 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -106,7 +109,12 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                               ),
                               margin: const EdgeInsets.only(bottom: 20),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await controller.CancelAppointement(
+                                    controller.list[index].appointementId
+                                        .toString(),
+                                  );
+                                },
                                 child: Text(
                                   "Cancel",
                                   style: TextStyle(color: AppColor.primaycolor),
@@ -129,25 +137,28 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                                 ),
                               ),
                             ),
-                            
                           ],
                         ),
                         Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              width: 120,
-                              decoration: BoxDecoration(
-                                color: AppColor.primaycolor,
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: AppColor.primaycolor),
-                              ),
-                              child: MaterialButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "Completed",
-                                  style: TextStyle(color: AppColor.white),
-                                ),
-                              ),
+                          margin: const EdgeInsets.only(bottom: 20),
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: AppColor.primaycolor,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: AppColor.primaycolor),
+                          ),
+                          child: MaterialButton(
+                            onPressed: () {
+                              controller.isCompleted(
+                                  controller.list[index].appointementDate!,
+                                  controller.list[index].appointementHeure!);
+                            },
+                            child: Text(
+                              "Completed",
+                              style: TextStyle(color: AppColor.white),
                             ),
+                          ),
+                        ),
                       ],
                     ),
                   );

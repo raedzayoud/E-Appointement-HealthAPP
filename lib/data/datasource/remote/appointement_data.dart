@@ -12,7 +12,7 @@ class AppointementData {
       "userid": userid,
       "doctorid": doctorid,
       "date": date.toString(),
-      "appointement_heure":appointement_heure
+      "appointement_heure": appointement_heure
     });
 
     // Return the data based on whether the response is a success or failure
@@ -27,7 +27,7 @@ class AppointementData {
       },
     );
   }
-  
+
   view(String userid) async {
     var response = await crud.postData(AppLinkApi.viewappointement, {
       "userid": userid,
@@ -46,4 +46,54 @@ class AppointementData {
     );
   }
 
+  cancelled(String userid, String appointementid) async {
+    var response = await crud.postData(AppLinkApi.cancelledapp,
+        {"userid": userid, "appointementid": appointementid});
+
+    // Return the data based on whether the response is a success or failure
+    return response.fold(
+      (left) {
+        // Handle the error (left side)
+        return left; // Return null or some error object if you need to handle it differently
+      },
+      (right) {
+        // Handle the success (right side)
+        return right; // Return the successful response
+      },
+    );
+  }
+
+  viewcancelled(String userid) async {
+    var response =
+        await crud.postData(AppLinkApi.viewcancelled, {"userid": userid});
+
+    // Return the data based on whether the response is a success or failure
+    return response.fold(
+      (left) {
+        // Handle the error (left side)
+        return left; // Return null or some error object if you need to handle it differently
+      },
+      (right) {
+        // Handle the success (right side)
+        return right; // Return the successful response
+      },
+    );
+  }
+
+  completedapp(String userid, String appointementid) async {
+    var response = await crud.postData(AppLinkApi.completedapp,
+        {"userid": userid, "appointementid": appointementid});
+
+    // Return the data based on whether the response is a success or failure
+    return response.fold(
+      (left) {
+        // Handle the error (left side)
+        return left; // Return null or some error object if you need to handle it differently
+      },
+      (right) {
+        // Handle the success (right side)
+        return right; // Return the successful response
+      },
+    );
+  }
 }

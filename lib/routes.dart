@@ -13,8 +13,7 @@ import 'package:health_app/view/scrren/typecategories.dart';
 List<GetPage<dynamic>>? getPages = [
   GetPage(
       name: "/",
-      page: () => Login(),
-      middlewares: [Mymiddleware()]),
+      page: () => Login()),
   GetPage(name: AppRoutes.singup, page: () => Singup()),
   GetPage(name: AppRoutes.home, page: () => Home()),
   GetPage(name: AppRoutes.homescrren, page: () => Homescrren()),
