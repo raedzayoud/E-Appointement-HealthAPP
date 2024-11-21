@@ -7,13 +7,13 @@ import 'package:health_app/view/scrren/auth/signup.dart';
 import 'package:health_app/view/scrren/doctordetails.dart';
 import 'package:health_app/view/scrren/home.dart';
 import 'package:health_app/view/scrren/homescrren.dart';
+import 'package:health_app/view/scrren/recheduleappointement.dart';
 import 'package:health_app/view/scrren/successappointement.dart';
 import 'package:health_app/view/scrren/typecategories.dart';
 
 List<GetPage<dynamic>>? getPages = [
-  GetPage(
-      name: "/",
-      page: () => Login()),
+  //GetPage(name: "/", page: () => Login(), middlewares: [Mymiddleware()]),
+  GetPage(name: "/", page: () => Login()),
   GetPage(name: AppRoutes.singup, page: () => Singup()),
   GetPage(name: AppRoutes.home, page: () => Home()),
   GetPage(name: AppRoutes.homescrren, page: () => Homescrren()),
@@ -23,5 +23,9 @@ List<GetPage<dynamic>>? getPages = [
   GetPage(name: AppRoutes.typecategories, page: () => Typecategories()),
   GetPage(
       name: AppRoutes.successappointement, page: () => Successappointement()),
+
+  GetPage(
+      name: AppRoutes.recheduleappointement,
+      page: () => Recheduleappointement()),
   //  GetPage(name: "/", page: () => Test()),
 ];

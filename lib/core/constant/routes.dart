@@ -7,4 +7,5 @@ class AppRoutes {
   static const String appoitementsSchedule = "/appoitementsSchedule";
   static const String typecategories = "/typecategories";
   static const String successappointement = "/successappointement";
+  static const String recheduleappointement = "/Recheduleappointement";
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/appoitements_controller.dart';
 import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/core/constant/routes.dart';
 import 'package:health_app/linkapi.dart';
 
 class Typeappointementborder extends GetView<AppoitementsController> {
@@ -130,7 +131,19 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                                 border: Border.all(color: AppColor.primaycolor),
                               ),
                               child: MaterialButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  controller.goToReschedule(
+                                    controller.list[index].appointementDate
+                                        .toString(),
+                                    controller.list[index].appointementHeure
+                                        .toString(),
+                                    controller.list[index].appointementId
+                                        .toString(),
+                                        controller.list[index].doctorId
+                                        .toString(),
+                                        controller.list[index]
+                                  );
+                                },
                                 child: Text(
                                   "Reschedule",
                                   style: TextStyle(color: AppColor.white),
@@ -151,7 +164,9 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                             onPressed: () {
                               controller.isCompleted(
                                   controller.list[index].appointementDate!,
-                                  controller.list[index].appointementHeure!);
+                                  controller.list[index].appointementHeure!,
+                                  controller.list[index].appointementId
+                                      .toString());
                             },
                             child: Text(
                               "Completed",

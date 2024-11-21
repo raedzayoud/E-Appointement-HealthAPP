@@ -24,4 +24,7 @@ class AppLinkApi {
   static String viewcancelled =
       "$linkServeurName/appointement/viewcancelled.php";
   static String completedapp = "$linkServeurName/appointement/completedapp.php";
+  static String viewcompletedapp = "$linkServeurName/appointement/viewcompleted.php";
+  static String timemanager = "$linkServeurName/appointement/timemanager.php";
+  static String recheduleappointement = "$linkServeurName/appointement/recheduleappointement.php";
 }

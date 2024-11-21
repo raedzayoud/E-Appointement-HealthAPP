@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:health_app/core/class/statusrequest.dart';
 import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/core/constant/routes.dart';
 import 'package:health_app/core/function/handledata.dart';
 import 'package:health_app/core/services/services.dart';
 import 'package:health_app/data/datasource/remote/appointement_data.dart';
@@ -19,6 +20,7 @@ class AppoitementsController extends GetxController {
   MyServices myServices = Get.find();
   List<appointementmodel> list = [];
   List<appointementmodel> listcancelled = [];
+  List<appointementmodel> listcompleted = [];
 
   void clickonthis(String val) {
     type = val;
@@ -127,7 +129,8 @@ class AppoitementsController extends GetxController {
     update();
   }
 
-  bool isCompleted(String appointementDate, String appointementHeure) {
+  isCompleted(String appointementDate, String appointementHeure,
+      String appointementid) {
     // Parse the appointment date
     DateTime appointementDateTime = DateTime.parse(appointementDate);
 
@@ -161,19 +164,8 @@ class AppoitementsController extends GetxController {
 
     // Check if the appointment is completed
     if (now.isAfter(appointementDateTime)) {
-      Get.defaultDialog(
-        title: "Success",
-        titleStyle: TextStyle(
-          color: AppColor.red,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-        content: Text(
-          "The meeting has taken place.",
-          style: TextStyle(fontSize: 15),
-        ),
-      );
-      return true;
+      //success
+      ModifyAppointementToCompleted(appointementid);
     } else {
       Get.defaultDialog(
         title: "Warning",
@@ -187,14 +179,78 @@ class AppoitementsController extends GetxController {
           style: TextStyle(fontSize: 15),
         ),
       );
-      return false;
     }
+  }
+
+  ModifyAppointementToCompleted(String appointementid) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await appointementData.completedapp(
+        myServices.sharedPreferences.getString("id")!, appointementid);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        await LoadDataUpcoming();
+        await LoadDataCompleted();
+        Get.defaultDialog(
+          title: "Success",
+          titleStyle: TextStyle(
+            color: AppColor.red,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+          content: Text(
+            "The meeting has taken place.",
+            style: TextStyle(fontSize: 15),
+          ),
+        );
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
+  }
+
+  LoadDataCompleted() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    listcompleted.clear();
+    var response = await appointementData
+        .viewcompletedapp(myServices.sharedPreferences.getString("id")!);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        List data = response['data'];
+        listcompleted = data.map((e) => appointementmodel.fromJson(e)).toList();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
+  }
+
+  goToReschedule(String date, String heure, String appointementid,
+      String doctorId, appointementmodel a) {
+    Get.toNamed(AppRoutes.recheduleappointement, arguments: {
+      "Date": date,
+      "heure": heure,
+      "appointementid": appointementid,
+      "doctorid": doctorId,
+      "appointementmodel": a
+    });
   }
 
   @override
   void onInit() {
     LoadDataUpcoming();
     viewCancelled();
+    LoadDataCompleted();
     super.onInit();
   }
 }
