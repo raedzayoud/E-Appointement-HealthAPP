@@ -27,4 +27,12 @@ class AppLinkApi {
   static String viewcompletedapp = "$linkServeurName/appointement/viewcompleted.php";
   static String timemanager = "$linkServeurName/appointement/timemanager.php";
   static String recheduleappointement = "$linkServeurName/appointement/recheduleappointement.php";
+
+//favourite
+  static String addFavourite = "$linkServeurName/favourite/add.php";
+  static String deleteFavourite = "$linkServeurName/favourite/delete.php";
+  static String viewFavourite = "$linkServeurName/favourite/view.php";
+
+
+
 }

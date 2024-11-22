@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/doctordetails_controller.dart';
+import 'package:health_app/controller/favourite_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/linkapi.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
@@ -14,6 +15,7 @@ class Doctordetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DoctordetailsController controller = Get.put(DoctordetailsController());
+    
     return Scaffold(
       appBar: Customappar(
         name: "Doctor Details",
@@ -38,7 +40,8 @@ class Doctordetails extends StatelessWidget {
                       scale: 1.4,
                       child: ClipOval(
                           child: HashCachedImage(
-                        imageUrl: "${AppLinkApi.imagesdoctor}/${controller.doctormodel!.doctorImage!}",
+                        imageUrl:
+                            "${AppLinkApi.imagesdoctor}/${controller.doctormodel!.doctorImage!}",
                       ))),
                 ),
               ),

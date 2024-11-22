@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_app/controller/doctordetails_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 
 class Customappar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,33 +15,42 @@ class Customappar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: AppColor.white,
-        ),
-      ),
-      backgroundColor: AppColor.primaycolor,
-      title: Text(
-        name,
-        style: TextStyle(color: AppColor.white),
-      ),
-      centerTitle: true,
-      actions: isAction
-          ? [
-              IconButton(
-                icon: Icon(Icons.favorite_outline, color: AppColor.white),
+    return GetBuilder<DoctordetailsController>(
+        builder: (controller) => AppBar(
+              leading: IconButton(
                 onPressed: () {
-                  // Handle action button tap
+                  Get.back();
                 },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: AppColor.white,
+                ),
               ),
-            ]
-          : null, // No actions if isAction is false
-    );
+              backgroundColor: AppColor.primaycolor,
+              title: Text(
+                name,
+                style: TextStyle(color: AppColor.white),
+              ),
+              centerTitle: true,
+              actions: isAction
+                  ? [
+                      IconButton(
+                        icon: Icon(
+                            controller.loadFavouriteStatus(controller
+                                        .doctormodel!.doctorId
+                                        .toString()) ==
+                                    false
+                                ? Icons.favorite_outline
+                                : Icons.favorite,
+                            color: AppColor.white),
+                        onPressed: () {
+                          controller.makeitFavourite(
+                              controller.doctormodel!.doctorId.toString());
+                        },
+                      ),
+                    ]
+                  : null, // No actions if isAction is false
+            ));
   }
 
   @override

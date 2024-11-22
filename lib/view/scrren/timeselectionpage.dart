@@ -16,8 +16,23 @@ class TimeSelectionPage extends StatelessWidget {
     Get.put(TimeselectionpageController());
     return GetBuilder<TimeselectionpageController>(
       builder: (controller) => Scaffold(
-        appBar: Customappar(
-          name: "Select Consultation Time",
+        appBar:AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor.white,
+            ),
+          ),
+          backgroundColor: AppColor.primaycolor,
+          title: Text(
+            "Select Consultation Time",
+            style: TextStyle(color: AppColor.white),
+          ),
+          centerTitle: true,
+          // No actions if isAction is false
         ),
         body: Container(
           color: AppColor.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/appoitementsdoctorReshedule_controller.dart';
+import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/view/scrren/timeselectionpage.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -13,8 +14,23 @@ class Recheduleappointement extends StatelessWidget {
     Get.put(AppoitementsdoctorresheduleController());
     return GetBuilder<AppoitementsdoctorresheduleController>(
       builder: (controller) => Scaffold(
-        appBar: Customappar(
-          name: "Reschedule Appointment",
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColor.white,
+            ),
+          ),
+          backgroundColor: AppColor.primaycolor,
+          title: Text(
+            "Reshedule Appointement",
+            style: TextStyle(color: AppColor.white),
+          ),
+          centerTitle: true,
+          // No actions if isAction is false
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
@@ -52,13 +68,16 @@ class Recheduleappointement extends StatelessWidget {
                         if (selectedDay.weekday != DateTime.saturday &&
                             selectedDay.weekday != DateTime.sunday) {
                           // Navigate to the time selection page
-                          Get.to(() => TimeSelectionPage(
-                                selectedDate: selectedDay,
-                                timeSlots: controller.timeSlots,
-                              ),arguments:{
-                                "doctorid":controller.doctorid,
-                                "appointementdate":controller.selectedDay.toString(),
-                                "appointementmodel":controller.a
+                          Get.to(
+                              () => TimeSelectionPage(
+                                    selectedDate: selectedDay,
+                                    timeSlots: controller.timeSlots,
+                                  ),
+                              arguments: {
+                                "doctorid": controller.doctorid,
+                                "appointementdate":
+                                    controller.selectedDay.toString(),
+                                "appointementmodel": controller.a
                               });
                         }
                       },
