@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_app/controller/appointement/timeselectionpage_controller.dart';
+import 'package:health_app/controller/appointement/timeselectionpagedoctor_controller.dart';
 import 'package:health_app/core/constant/color.dart';
-import 'package:intl/intl.dart';
 
-class TimeSelectionPage extends StatelessWidget {
+class Timeselectionpagedoctor extends StatelessWidget {
   final DateTime selectedDate;
   final List<String> timeSlots;
 
-  TimeSelectionPage({required this.selectedDate, required this.timeSlots});
+  Timeselectionpagedoctor(
+      {required this.selectedDate, required this.timeSlots});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(TimeselectionpageController());
-    return GetBuilder<TimeselectionpageController>(
+    Get.put(TimeselectionpagedoctorController());
+    return GetBuilder<TimeselectionpagedoctorController>(
       builder: (controller) => Scaffold(
-        appBar:AppBar(
+        appBar: AppBar(
           leading: IconButton(
             onPressed: () {
               Get.back();
@@ -95,40 +95,26 @@ class TimeSelectionPage extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: AppColor.primaycolor,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                      color: AppColor.primaycolor,
+                      borderRadius: BorderRadius.circular(20)),
                   child: MaterialButton(
                     onPressed: () {
                       if (controller.selectedTime == null) {
                         Get.defaultDialog(
-                          title: "Warning",
-                          content: const Text(
-                            "Please choose a Time for the new appointment",
-                          ),
-                          titleStyle: TextStyle(color: AppColor.red),
-                        );
+                            title: "Warning",
+                            content: Text(
+                                "Please choose a Time for the appointement "),
+                            titleStyle: TextStyle(color: AppColor.red));
                         return;
                       }
-
-                      DateTime dateTime = DateTime.parse(controller.appointementdate);
-
-                      // Format the DateTime to 'yyyy-MM-dd'
-                      String formattedDate =
-                          DateFormat('yyyy-MM-dd').format(dateTime);
-                     
-                      controller.resheduleAppointement(
-                          controller.selectedTime!,
-                          formattedDate,
-                          controller.a!.appointementId.toString());
+                      controller.MakeAppointement(
+                          controller.doctormodel!.doctorId.toString(),
+                          controller.selectedDay,
+                          controller.selectedTime!);
                     },
-                    child: const Text(
-                      'Reschedule Appointment',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Text(
+                      'Make Appointment',
+                      style: TextStyle(color: AppColor.white),
                     ),
                   ),
                 ),

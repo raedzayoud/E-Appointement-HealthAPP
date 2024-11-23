@@ -10,7 +10,7 @@ class Favourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // Get.put(FavouriteController());
+    // Get.put(FavouriteController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -22,69 +22,80 @@ class Favourite extends StatelessWidget {
       ),
       body: GetBuilder<FavouriteController>(
           builder: (controller) => Container(
-                child: ListView.builder(
-                    itemCount: controller.list.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          //controller.goToDoctorDetails(doctor);
-                        },
-                        child: Card(
-                          color: AppColor.white,
-                          margin: EdgeInsets.symmetric(vertical: 5),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Hero(
-                                tag:
-                                    'doctorImage_${controller.list[index].doctorUsername}',
-                                child: Container(
-                                    height: 150,
-                                    width: 120,
-                                    padding: EdgeInsets.all(8),
-                                    child: HashCachedImage(
-                                      imageUrl:
-                                          "${AppLinkApi.imagesdoctor}/${controller.list[index].doctorImage}",
-                                      fit: BoxFit.cover,
-                                    )),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ListTile(
-                                      title: Text(
-                                        "Dr." +
-                                            controller
-                                                .list[index].doctorUsername!,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: Text(
-                                          controller.list[index].doctorType!),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                child: controller.list.length == 0
+                    ? Center(
+                        child: Text(
+                          "There is no Favourite Selected",
+                          style: TextStyle(
+                              color: AppColor.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: controller.list.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              //controller.goToDoctorDetails(doctor);
+                            },
+                            child: Card(
+                              color: AppColor.white,
+                              margin: EdgeInsets.symmetric(vertical: 5),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Hero(
+                                    tag:
+                                        'doctorImage_${controller.list[index].doctorUsername}',
+                                    child: Container(
+                                        height: 150,
+                                        width: 120,
+                                        padding: EdgeInsets.all(8),
+                                        child: HashCachedImage(
+                                          imageUrl:
+                                              "${AppLinkApi.imagesdoctor}/${controller.list[index].doctorImage}",
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          child: Icon(Icons.star,
-                                              color: Colors.yellow),
+                                        ListTile(
+                                          title: Text(
+                                            "Dr." +
+                                                controller.list[index]
+                                                    .doctorUsername!,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: Text(controller
+                                              .list[index].doctorType!),
                                         ),
-                                        Text(
-                                            "Reviews (${controller.list[index].doctorReview})"),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  left: 10, right: 10),
+                                              child: Icon(Icons.star,
+                                                  color: Colors.yellow),
+                                            ),
+                                            Text(
+                                                "Reviews (${controller.list[index].doctorReview})"),
+                                          ],
+                                        ),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
+                            ),
+                          );
+                        }),
               )),
     );
   }

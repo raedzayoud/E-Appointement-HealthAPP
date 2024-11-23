@@ -1,7 +1,7 @@
 import 'package:dartz/dartz_streaming.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:health_app/controller/appoitements_controller.dart';
+import 'package:health_app/controller/appointement/appoitements_controller.dart';
 import 'package:health_app/core/class/statusrequest.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/routes.dart';

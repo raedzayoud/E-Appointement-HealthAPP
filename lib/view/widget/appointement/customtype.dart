@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_app/controller/appoitements_controller.dart';
+import 'package:health_app/controller/appointement/appoitements_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 
 class Customtype extends GetView<AppoitementsController> {

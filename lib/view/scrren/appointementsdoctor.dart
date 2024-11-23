@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_app/controller/appoitementsdoctor_controller.dart';
-import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/controller/appointement/appoitementsdoctor_controller.dart';
+import 'package:health_app/view/scrren/timeselectionpagedoctor.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -21,100 +21,78 @@ class Appointementsdoctor extends StatelessWidget {
                 child: Column(
                   children: [
                     // Calendar Widget
-                    TableCalendar(
-                      firstDay: DateTime.utc(2020, 1, 1),
-                      lastDay: DateTime.utc(2030, 12, 31),
-                      focusedDay: controller.focusedDay,
-                      selectedDayPredicate: (day) =>
-                          isSameDay(controller.selectedDay, day),
-                      onDaySelected: (selectedDay, focusedDay) {
-                        controller.onDaySelected(selectedDay, focusedDay);
-                      },
-                      enabledDayPredicate: (day) {
-                        return day.isAfter(
-                            DateTime.now().subtract(Duration(days: 1)));
-                      },
-                      calendarFormat: CalendarFormat.month,
-                      calendarBuilders: CalendarBuilders(
-                        selectedBuilder: (context, date, _) {
-                          //reduce the size
-                          return Container(
-                            width: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
+                    Container(
+                      margin: EdgeInsets.only(top: Get.width / 4.5),
+                      alignment: Alignment.center,
+                      child: Material(
+                        elevation: 5,
+                        borderRadius: BorderRadius.circular(12),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TableCalendar(
+                            firstDay: DateTime.utc(2020, 1, 1),
+                            lastDay: DateTime.utc(2030, 12, 31),
+                            focusedDay: controller.focusedDay!,
+                            selectedDayPredicate: (day) =>
+                                isSameDay(controller.selectedDay, day),
+                            onDaySelected: (selectedDay, focusedDay) {
+                              controller.onDaySelected(selectedDay, focusedDay);
+                              if (selectedDay.weekday != DateTime.saturday &&
+                                  selectedDay.weekday != DateTime.sunday) {
+                                // Navigate to the time selection page
+                                Get.to(
+                                    () => Timeselectionpagedoctor(
+                                          selectedDate: selectedDay,
+                                          timeSlots: controller.timeSlots,
+                                        ),
+                                    arguments: {
+                                      "doctorid": controller.doctormodel!.doctorId.toString(),
+                                      "appointementdate":
+                                          controller.selectedDay.toString(),
+                                      "doctormodel": controller.doctormodel,
+                                      "selectedDay": controller.selectedDay,
+                                      "focusedDay": controller.focusedDay,
+                                    });
+                              }
+                            },
+                            enabledDayPredicate: (day) {
+                              return day.isAfter(DateTime.now()
+                                  .subtract(const Duration(days: 1)));
+                            },
+                            calendarFormat: CalendarFormat.month,
+                            calendarBuilders: CalendarBuilders(
+                              selectedBuilder: (context, date, _) {
+                                return Container(
+                                  margin: const EdgeInsets.all(6.0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(50.0),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    '${date.day}',
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              },
                             ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              '${date.day}',
-                              style:
-                                  TextStyle(color: Colors.white), // Text color
-                            ),
-                          );
-                        },
+                          ),
+                        ),
                       ),
                     ),
 
-                    SizedBox(height: 20),
                     if (controller.selectedDay.weekday == DateTime.saturday ||
                         controller.selectedDay.weekday == DateTime.sunday) ...[
                       Center(
                         child: Container(
                           alignment: Alignment.center,
-                          height: 200,
+                          height: Get.width/2,
                           child: Text(
                             "There are no appointments on these days",
                             style: TextStyle(
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16),
-                          ),
-                        ),
-                      ),
-                    ] else ...[
-                      Text(
-                        'Select Consultation Time',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 10),
-                      Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: controller.timeSlots.map((time) {
-                          return ChoiceChip(
-                            label: Text(time),
-                            selected: controller.selectedTime == time,
-                            onSelected: (selected) {
-                              controller.onTimeSelected(time);
-                            },
-                          );
-                        }).toList(),
-                      ),
-                      Spacer(),
-                      // Make Appointment Button
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: AppColor.primaycolor,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: MaterialButton(
-                          onPressed: () {
-                            if (controller.selectedTime == null) {
-                              Get.defaultDialog(
-                                  title: "Warning",
-                                  content: Text("Please choose a Time for the appointement "),
-                                  titleStyle: TextStyle(color: AppColor.red));
-                              return;
-                            }
-                            controller.MakeAppointement(
-                                controller.doctormodel!.doctorId.toString(),
-                                controller.selectedDay,
-                                controller.selectedTime!);
-                          },
-                          child: Text(
-                            'Make Appointment',
-                            style: TextStyle(color: AppColor.white),
                           ),
                         ),
                       ),

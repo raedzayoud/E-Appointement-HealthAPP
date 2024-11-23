@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_app/controller/appoitementsdoctorReshedule_controller.dart';
+import 'package:health_app/controller/appointement/appoitementsdoctorReshedule_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/view/scrren/timeselectionpage.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';

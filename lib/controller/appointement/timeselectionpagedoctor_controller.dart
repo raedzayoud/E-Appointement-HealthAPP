@@ -1,40 +1,55 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:health_app/controller/appointement/appoitements_controller.dart';
 import 'package:health_app/core/class/statusrequest.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/routes.dart';
 import 'package:health_app/core/function/handledata.dart';
 import 'package:health_app/core/services/services.dart';
 import 'package:health_app/data/datasource/remote/appointement_data.dart';
+import 'package:health_app/data/datasource/remote/time_data.dart';
+import 'package:health_app/data/model/appointementmodel.dart';
 import 'package:health_app/data/model/doctormodel.dart';
 
-class AppoitementsdoctorController extends GetxController {
+class TimeselectionpagedoctorController extends GetxController {
+  StatusRequest statusRequest = StatusRequest.none;
+  TimeData timeData = TimeData(Get.find());
+  AppointementData timeData1 = AppointementData(Get.find());
+  MyServices myServices = Get.find();
+  List<appointementmodel> list = [];
+
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   String? selectedTime;
   AppointementData appointementData = AppointementData(Get.find());
-  MyServices myServices = Get.find();
-  StatusRequest statusRequest = StatusRequest.none;
-  Doctormodel ? doctormodel;
-  List<String> timeSlots = [
-    "9:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "12:00 PM",
-    "1:00 PM",
-    "2:00 PM",
-    "3:00 PM",
-    "4:00 PM",
-  ];
+  Doctormodel? doctormodel;
 
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    this.selectedDay = selectedDay;
-    this.focusedDay = focusedDay;
-    update();
-  }
+  String doctorId = "";
+  String appointementdate = "";
 
   void onTimeSelected(String? time) {
     selectedTime = time;
+    update();
+  }
+
+  loadTimeIsNotAvailable(String doctorId, String appointementdate) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    list.clear();
+    var response = await timeData.manageTime(doctorId, appointementdate);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        List data = response['data'];
+        list = data.map((e) => appointementmodel.fromJson(e)).toList();
+        print(list);
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
     update();
   }
 
@@ -69,13 +84,15 @@ class AppoitementsdoctorController extends GetxController {
       update();
     }
   }
-  
+
   @override
   void onInit() {
-    doctormodel=Get.arguments["doctormodel"];
+    doctormodel = Get.arguments["doctormodel"];
+    doctorId = Get.arguments["doctorid"];
+    appointementdate = Get.arguments["appointementdate"];
+    selectedDay = Get.arguments["selectedDay"];
+    focusedDay = Get.arguments["focusedDay"];
+    loadTimeIsNotAvailable(doctorId,appointementdate);
     super.onInit();
   }
-
-
-
 }

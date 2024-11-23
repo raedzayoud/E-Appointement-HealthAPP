@@ -10,7 +10,7 @@ class FavouriteController extends GetxController {
   StatusRequest statusRequest = StatusRequest.none;
   List<FavouriteModel> list = [];
   MyServices myServices = Get.find();
- 
+
   getData() async {
     statusRequest = StatusRequest.loading;
     update();
@@ -32,4 +32,9 @@ class FavouriteController extends GetxController {
     update();
   }
 
+  @override
+  void onInit() {
+    getData();
+    super.onInit();
+  }
 }

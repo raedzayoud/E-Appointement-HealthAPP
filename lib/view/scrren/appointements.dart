@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_app/controller/appoitements_controller.dart';
+import 'package:health_app/controller/appointement/appoitements_controller.dart';
 import 'package:health_app/core/class/handalingdataview.dart';
 import 'package:health_app/core/constant/color.dart';
-import 'package:health_app/core/constant/imageassets.dart';
 import 'package:health_app/view/widget/appointement/cancelled.dart';
 import 'package:health_app/view/widget/appointement/completedappointement.dart';
 import 'package:health_app/view/widget/appointement/customtype.dart';
