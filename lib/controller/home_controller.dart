@@ -19,16 +19,17 @@ class HomeController extends GetxController {
     "Gynecology": FontAwesomeIcons.personPregnant,
     "Dental": FontAwesomeIcons.teeth,
   };
-
   List<Doctormodel> TopdataDoctor = [];
   StatusRequest statusRequest = StatusRequest.none;
   DoctorData doctorData = DoctorData(Get.find());
   Doctormodel? doctormodel;
+  List<Doctormodel> searchlist = [];
+  bool isSearch = false;
+  TextEditingController searchdoctor = TextEditingController();
 
   void goToDoctorDetails(Doctormodel doctormodel) {
-    Get.toNamed(AppRoutes.doctordetails, arguments: {
-      "doctormodel":doctormodel
-    });
+    Get.toNamed(AppRoutes.doctordetails,
+        arguments: {"doctormodel": doctormodel});
   }
 
   void goToCategoriesDetails(String name, IconData icon) {
@@ -54,6 +55,40 @@ class HomeController extends GetxController {
         statusRequest = StatusRequest.failed;
       }
     }
+    update();
+  }
+
+  searchDoctor() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    searchlist.clear();
+    var response = await doctorData.searchDoctor(searchdoctor.text);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        List data = response['data'];
+        searchlist = data.map((e) => Doctormodel.fromJson(e)).toList();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
+  }
+
+  checkSearch(val) {
+    if (val == "") {
+      isSearch = false;
+      statusRequest = StatusRequest.none;
+    }
+    update();
+  }
+
+  onSearchDoctor() {
+    isSearch = true;
+    searchDoctor();
     update();
   }
 

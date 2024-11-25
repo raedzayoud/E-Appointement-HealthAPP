@@ -5,16 +5,22 @@ class Customtextformfieldsearch extends StatelessWidget {
   final void Function()? onPressed;
   final String? Function(String?)? validator;
   final IconData iconData;
+  final void Function(String)? onChanged;
+  final TextEditingController? controller;
   const Customtextformfieldsearch(
       {super.key,
       required this.hintText,
       this.onPressed,
       this.validator,
-      required this.iconData});
+      required this.iconData,
+      required this.onChanged,
+      this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        controller: controller,
+        onChanged: onChanged,
         decoration: InputDecoration(
           suffixIcon: IconButton(
             onPressed: onPressed,

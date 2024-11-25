@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/appointement/appoitementsdoctor_controller.dart';
+import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/view/scrren/timeselectionpagedoctor.dart';
 import 'package:health_app/view/widget/appointementdoctor/customappar.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -20,9 +21,15 @@ class Appointementsdoctor extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: Column(
                   children: [
+                    Text(
+                      "Please choose a day, and the app will show you the available times for this doctor.",
+                      style: TextStyle(color: AppColor.black,fontWeight: FontWeight.bold,fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+
                     // Calendar Widget
                     Container(
-                      margin: EdgeInsets.only(top: Get.width / 4.5),
+                      margin: EdgeInsets.only(top: Get.width / 4.8),
                       alignment: Alignment.center,
                       child: Material(
                         elevation: 5,
@@ -46,7 +53,9 @@ class Appointementsdoctor extends StatelessWidget {
                                           timeSlots: controller.timeSlots,
                                         ),
                                     arguments: {
-                                      "doctorid": controller.doctormodel!.doctorId.toString(),
+                                      "doctorid": controller
+                                          .doctormodel!.doctorId
+                                          .toString(),
                                       "appointementdate":
                                           controller.selectedDay.toString(),
                                       "doctormodel": controller.doctormodel,
@@ -86,7 +95,7 @@ class Appointementsdoctor extends StatelessWidget {
                       Center(
                         child: Container(
                           alignment: Alignment.center,
-                          height: Get.width/2,
+                          height: Get.width / 2,
                           child: Text(
                             "There are no appointments on these days",
                             style: TextStyle(

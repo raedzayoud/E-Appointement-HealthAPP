@@ -8,6 +8,7 @@ class AppLinkApi {
   static String imagesuser = "$linkServeurName/upload/users";
   // doctor
   static String viewdoctor = "$linkServeurName/doctor/viewdoctorbyreview.php";
+  static String searchdoctor = "$linkServeurName/doctor/searchdoctor.php";
   static String filtragebyspec =
       "$linkServeurName/doctor/filtragebyspeacilte.php";
 
