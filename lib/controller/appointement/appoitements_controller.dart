@@ -8,6 +8,7 @@ import 'package:health_app/core/constant/routes.dart';
 import 'package:health_app/core/function/handledata.dart';
 import 'package:health_app/core/services/services.dart';
 import 'package:health_app/data/datasource/remote/appointement_data.dart';
+import 'package:health_app/data/datasource/remote/feedback_data.dart';
 import 'package:health_app/data/model/appointementmodel.dart';
 import 'package:intl/intl.dart';
 
@@ -23,6 +24,9 @@ class AppoitementsController extends GetxController {
   List<appointementmodel> list = [];
   List<appointementmodel> listcancelled = [];
   List<appointementmodel> listcompleted = [];
+  String doctorid = "0";
+  bool isFeedback = false;
+  FeedbackData feedbackData = FeedbackData(Get.find());
 
   void clickonthis(String val) {
     type = val;
@@ -132,7 +136,7 @@ class AppoitementsController extends GetxController {
   }
 
   isCompleted(String appointementDate, String appointementHeure,
-      String appointementid,String doctorId) {
+      String appointementid, String doctorId) {
     // Parse the appointment date
     DateTime appointementDateTime = DateTime.parse(appointementDate);
 
@@ -167,8 +171,8 @@ class AppoitementsController extends GetxController {
     // Check if the appointment is completed
     if (now.isAfter(appointementDateTime)) {
       //success
-      ModifyAppointementToCompleted(appointementid,doctorId);
-     // homeController.getData();
+      ModifyAppointementToCompleted(appointementid, doctorId);
+      // homeController.getData();
     } else {
       Get.defaultDialog(
         title: "Warning",
@@ -185,11 +189,13 @@ class AppoitementsController extends GetxController {
     }
   }
 
-  ModifyAppointementToCompleted(String appointementid,String doctorId) async {
+  ModifyAppointementToCompleted(String appointementid, String doctorId) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await appointementData.completedapp(
-        myServices.sharedPreferences.getString("id")!, appointementid,doctorId);
+        myServices.sharedPreferences.getString("id")!,
+        appointementid,
+        doctorId);
     if (response == null) {
       statusRequest = StatusRequest.failed;
     }
@@ -247,6 +253,60 @@ class AppoitementsController extends GetxController {
       "doctorid": doctorId,
       "appointementmodel": a
     });
+  }
+
+  feedBack(String doctorid, String comment, String rating,
+      String appointementid) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    doctorid = doctorid;
+    var response = await feedbackData.postData(
+        myServices.sharedPreferences.getString("id")!,
+        doctorid,
+        comment,
+        rating);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        await deleteAppointement(doctorid, appointementid);
+
+        await LoadDataCompleted();
+
+        Get.defaultDialog(
+            title: "Success",
+            titleStyle: TextStyle(color: AppColor.red, fontSize: 18),
+            middleText: "Thanks for your feedback !",
+            middleTextStyle: TextStyle(fontWeight: FontWeight.w700));
+        // isFeedback=true;
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
+  }
+
+  deleteAppointement(String doctorid, String appointementid) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    doctorid = doctorid;
+    var response = await appointementData.deleteapp(
+        myServices.sharedPreferences.getString("id")!,
+        doctorid,
+        appointementid);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
   }
 
   @override

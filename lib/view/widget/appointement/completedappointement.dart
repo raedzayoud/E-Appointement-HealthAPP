@@ -106,7 +106,12 @@ class Completedappointement extends GetView<AppoitementsController> {
                           margin: EdgeInsets.only(bottom: 20),
                           child: MaterialButton(
                             onPressed: () {
-                              rating(context);
+                              rating(
+                                  context,
+                                  controller.listcompleted[index].doctorId
+                                      .toString(),
+                                  controller.listcompleted[index].appointementId
+                                      .toString());
                             },
                             child: Text(
                               "Give us Your FeedBack of the doctor",
