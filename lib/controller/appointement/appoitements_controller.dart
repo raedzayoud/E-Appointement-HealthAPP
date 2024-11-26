@@ -19,7 +19,7 @@ class AppoitementsController extends GetxController {
   String currentTime = DateFormat('hh:mm a').format(DateTime.now());
   StatusRequest statusRequest = StatusRequest.none;
   AppointementData appointementData = AppointementData(Get.find());
-  //HomeController homeController=Get.find();
+ // HomeController homeController = Get.find();
   MyServices myServices = Get.find();
   List<appointementmodel> list = [];
   List<appointementmodel> listcancelled = [];
@@ -28,7 +28,11 @@ class AppoitementsController extends GetxController {
   bool isFeedback = false;
   FeedbackData feedbackData = FeedbackData(Get.find());
 
-  void clickonthis(String val) {
+  // reloadHome() async {
+  //   await homeController.getData();
+  // }
+
+  clickonthis(String val) {
     type = val;
     update();
   }

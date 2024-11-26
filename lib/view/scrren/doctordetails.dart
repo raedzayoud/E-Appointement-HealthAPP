@@ -92,7 +92,7 @@ class Doctordetails extends StatelessWidget {
             ),
             Spacer(),
             Custombutton(
-              text: "See the comment of others client ",
+              text: "View comments from other clients ",
               onPressed: () {},
             ),
             Custombutton(

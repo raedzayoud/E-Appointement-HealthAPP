@@ -160,8 +160,9 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                             border: Border.all(color: AppColor.primaycolor),
                           ),
                           child: MaterialButton(
-                            onPressed: () {
-                              controller.isCompleted(
+                            onPressed: () async {
+                             // controller.reloadHome();
+                              await controller.isCompleted(
                                   controller.list[index].appointementDate!,
                                   controller.list[index].appointementHeure!,
                                   controller.list[index].appointementId

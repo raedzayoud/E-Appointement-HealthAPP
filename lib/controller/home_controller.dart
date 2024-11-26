@@ -42,6 +42,7 @@ class HomeController extends GetxController {
   getData() async {
     statusRequest = StatusRequest.loading;
     update();
+    TopdataDoctor.clear();
     var response = await doctorData.postData();
     if (response == null) {
       statusRequest = StatusRequest.failed;
@@ -91,10 +92,11 @@ class HomeController extends GetxController {
     searchDoctor();
     update();
   }
-
+  
   @override
   void onInit() {
-  //  getData();
+   // getData();
     super.onInit();
   }
+  
 }

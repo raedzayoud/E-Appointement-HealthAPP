@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   HomeController controller=  Get.put(HomeController());
+   HomeController controller= Get.put(HomeController());
     controller.getData();
     return GetBuilder<HomeController>(
         builder: (controller) => HandlingdataRequest(
