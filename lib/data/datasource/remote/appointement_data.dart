@@ -80,9 +80,12 @@ class AppointementData {
     );
   }
 
-  completedapp(String userid, String appointementid) async {
-    var response = await crud.postData(AppLinkApi.completedapp,
-        {"userid": userid, "appointementid": appointementid});
+  completedapp(String userid, String appointementid, String doctorid) async {
+    var response = await crud.postData(AppLinkApi.completedapp, {
+      "userid": userid,
+      "appointementid": appointementid,
+      "doctorid": doctorid
+    });
 
     // Return the data based on whether the response is a success or failure
     return response.fold(

@@ -26,7 +26,6 @@ class Appointementsdoctor extends StatelessWidget {
                       style: TextStyle(color: AppColor.black,fontWeight: FontWeight.bold,fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
-
                     // Calendar Widget
                     Container(
                       margin: EdgeInsets.only(top: Get.width / 4.8),

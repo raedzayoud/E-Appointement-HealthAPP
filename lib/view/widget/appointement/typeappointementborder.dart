@@ -133,16 +133,15 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                               child: MaterialButton(
                                 onPressed: () {
                                   controller.goToReschedule(
-                                    controller.list[index].appointementDate
-                                        .toString(),
-                                    controller.list[index].appointementHeure
-                                        .toString(),
-                                    controller.list[index].appointementId
-                                        .toString(),
-                                        controller.list[index].doctorId
-                                        .toString(),
-                                        controller.list[index]
-                                  );
+                                      controller.list[index].appointementDate
+                                          .toString(),
+                                      controller.list[index].appointementHeure
+                                          .toString(),
+                                      controller.list[index].appointementId
+                                          .toString(),
+                                      controller.list[index].doctorId
+                                          .toString(),
+                                      controller.list[index]);
                                 },
                                 child: Text(
                                   "Reschedule",
@@ -166,7 +165,8 @@ class Typeappointementborder extends GetView<AppoitementsController> {
                                   controller.list[index].appointementDate!,
                                   controller.list[index].appointementHeure!,
                                   controller.list[index].appointementId
-                                      .toString());
+                                      .toString(),
+                                  controller.list[index].doctorId.toString());
                             },
                             child: Text(
                               "Completed",

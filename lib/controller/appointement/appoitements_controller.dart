@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:health_app/controller/home_controller.dart';
 import 'package:health_app/core/class/statusrequest.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/routes.dart';
@@ -17,6 +18,7 @@ class AppoitementsController extends GetxController {
   String currentTime = DateFormat('hh:mm a').format(DateTime.now());
   StatusRequest statusRequest = StatusRequest.none;
   AppointementData appointementData = AppointementData(Get.find());
+  //HomeController homeController=Get.find();
   MyServices myServices = Get.find();
   List<appointementmodel> list = [];
   List<appointementmodel> listcancelled = [];
@@ -130,7 +132,7 @@ class AppoitementsController extends GetxController {
   }
 
   isCompleted(String appointementDate, String appointementHeure,
-      String appointementid) {
+      String appointementid,String doctorId) {
     // Parse the appointment date
     DateTime appointementDateTime = DateTime.parse(appointementDate);
 
@@ -165,7 +167,8 @@ class AppoitementsController extends GetxController {
     // Check if the appointment is completed
     if (now.isAfter(appointementDateTime)) {
       //success
-      ModifyAppointementToCompleted(appointementid);
+      ModifyAppointementToCompleted(appointementid,doctorId);
+     // homeController.getData();
     } else {
       Get.defaultDialog(
         title: "Warning",
@@ -182,11 +185,11 @@ class AppoitementsController extends GetxController {
     }
   }
 
-  ModifyAppointementToCompleted(String appointementid) async {
+  ModifyAppointementToCompleted(String appointementid,String doctorId) async {
     statusRequest = StatusRequest.loading;
     update();
     var response = await appointementData.completedapp(
-        myServices.sharedPreferences.getString("id")!, appointementid);
+        myServices.sharedPreferences.getString("id")!, appointementid,doctorId);
     if (response == null) {
       statusRequest = StatusRequest.failed;
     }

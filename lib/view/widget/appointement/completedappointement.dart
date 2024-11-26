@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/appointement/appoitements_controller.dart';
 import 'package:health_app/core/constant/color.dart';
+import 'package:health_app/core/function/rating.dart';
 import 'package:health_app/linkapi.dart';
 
 class Completedappointement extends GetView<AppoitementsController> {
@@ -104,7 +105,9 @@ class Completedappointement extends GetView<AppoitementsController> {
                               borderRadius: BorderRadius.circular(20)),
                           margin: EdgeInsets.only(bottom: 20),
                           child: MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              rating(context);
+                            },
                             child: Text(
                               "Give us Your FeedBack of the doctor",
                               style: TextStyle(color: AppColor.white),

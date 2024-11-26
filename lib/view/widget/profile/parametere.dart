@@ -16,11 +16,12 @@ class Parametere extends GetView<ProfileController> {
         child: ListView(
           children: [
             Container(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  "Profile",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                )),
+              padding: EdgeInsets.all(20),
+              child: Text(
+                "Profile",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+            ),
             Divider(
               thickness: 0.5,
             ),
@@ -34,16 +35,18 @@ class Parametere extends GetView<ProfileController> {
                     ),
                     InkWell(
                       onTap: () {
-                        // controller.goToLogin();
+                        if (entry.key == "Logout") {
+                          controller.goToLogin();
+                        }
                       },
                       child: Icon(entry.value, color: AppColor.primaycolor),
                     ),
-
-                    SizedBox(width: 10), // Add space between icon and text
-
+                    SizedBox(width: 10),
                     InkWell(
                       onTap: () {
-                        //    controller.goToLogin();
+                        if (entry.key == "Logout") {
+                          controller.goToLogin();
+                        }
                       },
                       child: Text(
                         entry.key,
