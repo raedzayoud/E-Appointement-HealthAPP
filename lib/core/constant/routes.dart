@@ -8,4 +8,5 @@ class AppRoutes {
   static const String typecategories = "/typecategories";
   static const String successappointement = "/successappointement";
   static const String recheduleappointement = "/Recheduleappointement";
+  static const String comment="/comment";
 }

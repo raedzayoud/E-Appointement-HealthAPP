@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_app/view/scrren/appointements.dart';
+import 'package:health_app/view/scrren/appointement/appointements.dart';
 import 'package:health_app/view/scrren/favourite.dart';
 import 'package:health_app/view/scrren/home.dart';
 import 'package:health_app/view/scrren/profile/profile.dart';

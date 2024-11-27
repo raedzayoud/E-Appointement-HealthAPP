@@ -6,7 +6,9 @@ import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/routes.dart';
 import 'package:health_app/core/function/handledata.dart';
 import 'package:health_app/core/services/services.dart';
+import 'package:health_app/data/datasource/remote/comment_data.dart';
 import 'package:health_app/data/datasource/remote/favourite_data.dart';
+import 'package:health_app/data/model/commentmodel.dart';
 import 'package:health_app/data/model/doctormodel.dart';
 
 class DoctordetailsController extends GetxController {
@@ -16,6 +18,8 @@ class DoctordetailsController extends GetxController {
   MyServices myServices = Get.find();
   bool isFavourite = false;
   FavouriteController controller = Get.find();
+  List<CommentModel> list = [];
+  CommentData commentData = CommentData(Get.find());
 
   Map DataDoctorDetails = {
     "Patients": "56",
@@ -94,6 +98,35 @@ class DoctordetailsController extends GetxController {
     }
   }
 
+  void goToBookAppointements() {
+    Get.toNamed(AppRoutes.appoitementsSchedule,
+        arguments: {"doctormodel": doctormodel});
+  }
+
+  loadComment(String doctorid) async {
+    statusRequest = StatusRequest.loading;
+    update();
+    list.clear();
+    var response = await commentData.load(doctorid);
+    if (response == null) {
+      statusRequest = StatusRequest.failed;
+    }
+    statusRequest = HandleData(response);
+    if (StatusRequest.success == statusRequest) {
+      if (response['status'] == 'success') {
+        List data = response['data'];
+        list = data.map((e) => CommentModel.fromJson(e)).toList();
+      } else {
+        statusRequest = StatusRequest.failed;
+      }
+    }
+    update();
+  }
+
+  goToComment() {
+    Get.toNamed(AppRoutes.comment);
+  }
+
   @override
   void onInit() {
     doctormodel = Get.arguments["doctormodel"];
@@ -101,11 +134,7 @@ class DoctordetailsController extends GetxController {
       loadFavouriteStatus(
           doctormodel!.doctorId.toString()); // Load the favorite status
     }
+    loadComment(doctormodel!.doctorId.toString());
     super.onInit();
-  }
-
-  void goToBookAppointements() {
-    Get.toNamed(AppRoutes.appoitementsSchedule,
-        arguments: {"doctormodel": doctormodel});
   }
 }

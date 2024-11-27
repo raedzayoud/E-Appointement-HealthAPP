@@ -93,7 +93,9 @@ class Doctordetails extends StatelessWidget {
             Spacer(),
             Custombutton(
               text: "View comments from other clients ",
-              onPressed: () {},
+              onPressed: () {
+                controller.goToComment();
+              },
             ),
             Custombutton(
               text: "Book Appointements",

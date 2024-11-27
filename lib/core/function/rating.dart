@@ -44,6 +44,13 @@ void rating(
         //   "We're Sorry!",
         //   "Please reach out to us to help improve your experience.",
         //   snackPosition: SnackPosition.BOTTOM,
+
+           await appoitementsController.feedBack(
+          doctorId,
+          response.comment,
+          response.rating.toString(),
+          appointmentId,
+        );
         
       } else {
         // Call the feedback function and refresh data

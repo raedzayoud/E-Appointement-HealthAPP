@@ -1,13 +1,14 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:health_app/core/constant/routes.dart';
 import 'package:health_app/core/middleware/mymiddle.dart';
-import 'package:health_app/view/scrren/appointementsdoctor.dart';
+import 'package:health_app/view/scrren/appointement/appointementsdoctor.dart';
 import 'package:health_app/view/scrren/auth/login.dart';
 import 'package:health_app/view/scrren/auth/signup.dart';
+import 'package:health_app/view/scrren/comment.dart';
 import 'package:health_app/view/scrren/doctordetails.dart';
 import 'package:health_app/view/scrren/home.dart';
 import 'package:health_app/view/scrren/homescrren.dart';
-import 'package:health_app/view/scrren/recheduleappointement.dart';
+import 'package:health_app/view/scrren/appointement/recheduleappointement.dart';
 import 'package:health_app/view/scrren/successappointement.dart';
 import 'package:health_app/view/scrren/typecategories.dart';
 
@@ -22,6 +23,7 @@ List<GetPage<dynamic>>? getPages = [
   GetPage(
       name: AppRoutes.appoitementsSchedule, page: () => Appointementsdoctor()),
   GetPage(name: AppRoutes.typecategories, page: () => Typecategories()),
+  GetPage(name: AppRoutes.comment, page: () => Comment()),
   GetPage(
       name: AppRoutes.successappointement, page: () => Successappointement()),
 
