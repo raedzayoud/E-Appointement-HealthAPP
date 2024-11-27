@@ -3,7 +3,7 @@ class CommentModel {
   int? commentUserid;
   int? commentDoctorid;
   String? commentComment;
-  String? commentRating;
+  double? commentRating; // Changed to double
   int? usersId;
   String? usersUsername;
   String? usersEmail;
@@ -19,37 +19,38 @@ class CommentModel {
   int? doctorReview;
   int? doctorPatient;
   int? doctorExperience;
-  int? doctorRating;
+  double? doctorRating; // Changed to double
 
-  CommentModel(
-      {this.commentId,
-      this.commentUserid,
-      this.commentDoctorid,
-      this.commentComment,
-      this.commentRating,
-      this.usersId,
-      this.usersUsername,
-      this.usersEmail,
-      this.usersPhone,
-      this.usersAge,
-      this.usersPassword,
-      this.usersImage,
-      this.doctorId,
-      this.doctorUsername,
-      this.doctorDescription,
-      this.doctorType,
-      this.doctorImage,
-      this.doctorReview,
-      this.doctorPatient,
-      this.doctorExperience,
-      this.doctorRating});
+  CommentModel({
+    this.commentId,
+    this.commentUserid,
+    this.commentDoctorid,
+    this.commentComment,
+    this.commentRating,
+    this.usersId,
+    this.usersUsername,
+    this.usersEmail,
+    this.usersPhone,
+    this.usersAge,
+    this.usersPassword,
+    this.usersImage,
+    this.doctorId,
+    this.doctorUsername,
+    this.doctorDescription,
+    this.doctorType,
+    this.doctorImage,
+    this.doctorReview,
+    this.doctorPatient,
+    this.doctorExperience,
+    this.doctorRating,
+  });
 
   CommentModel.fromJson(Map<String, dynamic> json) {
     commentId = json['comment_id'];
     commentUserid = json['comment_userid'];
     commentDoctorid = json['comment_doctorid'];
     commentComment = json['comment_comment'];
-    commentRating = json['comment_rating'];
+    commentRating = (json['comment_rating'] as num?)?.toDouble(); // Safely convert to double
     usersId = json['users_id'];
     usersUsername = json['users_username'];
     usersEmail = json['users_email'];
@@ -65,32 +66,32 @@ class CommentModel {
     doctorReview = json['doctor_review'];
     doctorPatient = json['doctor_patient'];
     doctorExperience = json['doctor_experience'];
-    doctorRating = json['doctor_rating'];
+    doctorRating = (json['doctor_rating'] as num?)?.toDouble(); // Safely convert to double
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['comment_id'] = this.commentId;
-    data['comment_userid'] = this.commentUserid;
-    data['comment_doctorid'] = this.commentDoctorid;
-    data['comment_comment'] = this.commentComment;
-    data['comment_rating'] = this.commentRating;
-    data['users_id'] = this.usersId;
-    data['users_username'] = this.usersUsername;
-    data['users_email'] = this.usersEmail;
-    data['users_phone'] = this.usersPhone;
-    data['users_age'] = this.usersAge;
-    data['users_password'] = this.usersPassword;
-    data['users_image'] = this.usersImage;
-    data['doctor_id'] = this.doctorId;
-    data['doctor_username'] = this.doctorUsername;
-    data['doctor_description'] = this.doctorDescription;
-    data['doctor_type'] = this.doctorType;
-    data['doctor_image'] = this.doctorImage;
-    data['doctor_review'] = this.doctorReview;
-    data['doctor_patient'] = this.doctorPatient;
-    data['doctor_experience'] = this.doctorExperience;
-    data['doctor_rating'] = this.doctorRating;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['comment_id'] = commentId;
+    data['comment_userid'] = commentUserid;
+    data['comment_doctorid'] = commentDoctorid;
+    data['comment_comment'] = commentComment;
+    data['comment_rating'] = commentRating;
+    data['users_id'] = usersId;
+    data['users_username'] = usersUsername;
+    data['users_email'] = usersEmail;
+    data['users_phone'] = usersPhone;
+    data['users_age'] = usersAge;
+    data['users_password'] = usersPassword;
+    data['users_image'] = usersImage;
+    data['doctor_id'] = doctorId;
+    data['doctor_username'] = doctorUsername;
+    data['doctor_description'] = doctorDescription;
+    data['doctor_type'] = doctorType;
+    data['doctor_image'] = doctorImage;
+    data['doctor_review'] = doctorReview;
+    data['doctor_patient'] = doctorPatient;
+    data['doctor_experience'] = doctorExperience;
+    data['doctor_rating'] = doctorRating;
     return data;
   }
 }

@@ -68,7 +68,7 @@ class Comment extends StatelessWidget {
                                         Icons.star,
                                         color: starIndex <
                                                 double.parse(controller
-                                                    .list[index].commentRating!)
+                                                    .list[index].commentRating!.toString())
                                             ? Colors.orange
                                             : Colors.grey[300],
                                         size: 18,

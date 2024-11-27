@@ -1,3 +1,4 @@
+
 class Doctormodel {
   int? doctorId;
   String? doctorUsername;
@@ -7,7 +8,7 @@ class Doctormodel {
   int? doctorReview;
   int? doctorPatient;
   int? doctorExperience;
-  int? doctorRating;
+  double? doctorRating;
 
   Doctormodel(
       {this.doctorId,
@@ -29,7 +30,10 @@ class Doctormodel {
     doctorReview = json['doctor_review'];
     doctorPatient = json['doctor_patient'];
     doctorExperience = json['doctor_experience'];
-    doctorRating = json['doctor_rating'];
+    // Safely convert doctor_rating to double
+    doctorRating = (json['doctor_rating'] != null)
+        ? json['doctor_rating'].toDouble()
+        : null;
   }
 
   Map<String, dynamic> toJson() {

@@ -15,7 +15,7 @@ class Doctordetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DoctordetailsController controller = Get.put(DoctordetailsController());
-    
+
     return Scaffold(
       appBar: Customappar(
         name: "Doctor Details",
@@ -62,16 +62,19 @@ class Doctordetails extends StatelessWidget {
               children: [
                 Custominfodoctor(
                   name: "Patient",
-                  nbre: "56",
+                  nbre: "${controller.doctormodel!.doctorPatient.toString()}",
                 ),
                 Custominfodoctor(
                   name: "Expereicnes",
-                  nbre: "9 Years",
+                  nbre:
+                      "${controller.doctormodel!.doctorExperience.toString()} Years",
                 ),
                 Custominfodoctor(
-                  name: "Rating",
-                  nbre: "4.0",
-                ),
+                    name: "Rating",
+                    nbre: controller.doctormodel?.doctorRating != null
+                        ? controller.doctormodel!.doctorRating!
+                            .toStringAsFixed(2)
+                        : "N/A"),
               ],
             ),
             Container(

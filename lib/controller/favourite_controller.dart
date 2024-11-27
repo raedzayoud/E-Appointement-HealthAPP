@@ -15,8 +15,15 @@ class FavouriteController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     list.clear();
-    var response = await favouriteData
-        .viewFavourite(myServices.sharedPreferences.getString("id")!);
+    var userId = myServices.sharedPreferences.getString("id");
+    if (userId == null) {
+      // Handle the case where the ID is not set
+      print("User ID not found in SharedPreferences.");
+      return; // Or provide a fallback value or action
+    }
+
+    var response = await favouriteData.viewFavourite(userId);
+
     if (response == null) {
       statusRequest = StatusRequest.failed;
     }

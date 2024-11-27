@@ -10,7 +10,7 @@ class FavouriteModel {
   int? doctorReview;
   int? doctorPatient;
   int? doctorExperience;
-  int? doctorRating;
+  double? doctorRating;
   int? usersId;
   String? usersUsername;
   String? usersEmail;
@@ -52,7 +52,9 @@ class FavouriteModel {
     doctorReview = json['doctor_review'];
     doctorPatient = json['doctor_patient'];
     doctorExperience = json['doctor_experience'];
-    doctorRating = json['doctor_rating'];
+    doctorRating = (json['doctor_rating'] != null)
+        ? json['doctor_rating'].toDouble()
+        : 0.0;
     usersId = json['users_id'];
     usersUsername = json['users_username'];
     usersEmail = json['users_email'];

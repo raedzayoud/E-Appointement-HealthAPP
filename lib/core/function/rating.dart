@@ -39,11 +39,6 @@ void rating(
 
       // Check user rating and handle accordingly
       if (response.rating < 3.0) {
-        // Optional: Show an alert or suggestion for low ratings
-        // Get.snackbar(
-        //   "We're Sorry!",
-        //   "Please reach out to us to help improve your experience.",
-        //   snackPosition: SnackPosition.BOTTOM,
 
            await appoitementsController.feedBack(
           doctorId,
@@ -53,8 +48,7 @@ void rating(
         );
         
       } else {
-        // Call the feedback function and refresh data
-        await appoitementsController.feedBack(
+         await appoitementsController.feedBack(
           doctorId,
           response.comment,
           response.rating.toString(),

@@ -13,7 +13,7 @@ class appointementmodel {
   int? doctorReview;
   int? doctorPatient;
   int? doctorExperience;
-  int? doctorRating;
+  double? doctorRating;
   int? usersId;
   String? usersUsername;
   String? usersEmail;
@@ -45,8 +45,7 @@ class appointementmodel {
       this.usersAge,
       this.usersPassword,
       this.usersImage});
-
-  appointementmodel.fromJson(Map<String, dynamic> json) {
+appointementmodel.fromJson(Map<String, dynamic> json) {
     appointementId = json['appointement_id'];
     appointementDoctorid = json['appointement_doctorid'];
     appointementUserid = json['appointement_userid'];
@@ -61,7 +60,9 @@ class appointementmodel {
     doctorReview = json['doctor_review'];
     doctorPatient = json['doctor_patient'];
     doctorExperience = json['doctor_experience'];
-    doctorRating = json['doctor_rating'];
+    doctorRating = json['doctor_rating'] is int
+        ? (json['doctor_rating'] as int).toDouble()
+        : json['doctor_rating']?.toDouble();
     usersId = json['users_id'];
     usersUsername = json['users_username'];
     usersEmail = json['users_email'];
@@ -69,7 +70,7 @@ class appointementmodel {
     usersAge = json['users_age'];
     usersPassword = json['users_password'];
     usersImage = json['users_image'];
-  }
+}
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

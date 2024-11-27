@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/appointement/appoitements_controller.dart';
+import 'package:health_app/controller/comment_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/function/rating.dart';
 import 'package:health_app/linkapi.dart';
@@ -10,6 +11,7 @@ class Completedappointement extends GetView<AppoitementsController> {
 
   @override
   Widget build(BuildContext context) {
+    CommentController controller1 = Get.put(CommentController());
     return GetBuilder<AppoitementsController>(
       builder: (controller) {
         // Ensure the list is not empty
@@ -105,13 +107,17 @@ class Completedappointement extends GetView<AppoitementsController> {
                               borderRadius: BorderRadius.circular(20)),
                           margin: EdgeInsets.only(bottom: 20),
                           child: MaterialButton(
-                            onPressed: () {
+                            onPressed: () async {
                               rating(
                                   context,
                                   controller.listcompleted[index].doctorId
                                       .toString(),
                                   controller.listcompleted[index].appointementId
                                       .toString());
+
+                              await controller1.loadComment(controller
+                                  .listcompleted[index].doctorId
+                                  .toString());
                             },
                             child: Text(
                               "Give us Your FeedBack of the doctor",

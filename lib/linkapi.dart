@@ -41,4 +41,5 @@ class AppLinkApi {
 
   //comment
   static String viewComment = "$linkServeurName/comment/view.php";
+  static String getetoileachdoctorfromcomment = "$linkServeurName/comment/getetoileachdoctor.php";
 }

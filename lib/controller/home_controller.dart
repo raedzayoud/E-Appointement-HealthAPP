@@ -26,6 +26,7 @@ class HomeController extends GetxController {
   List<Doctormodel> searchlist = [];
   bool isSearch = false;
   TextEditingController searchdoctor = TextEditingController();
+  //List ratingdoctor = [];
 
   void goToDoctorDetails(Doctormodel doctormodel) {
     Get.toNamed(AppRoutes.doctordetails,
@@ -51,7 +52,10 @@ class HomeController extends GetxController {
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == 'success') {
         List data = response['data'];
+      
+        print(data.first["doctor_rating"]);
         TopdataDoctor = data.map((e) => Doctormodel.fromJson(e)).toList();
+     //   ratingdoctor.addAll(data2);
       } else {
         statusRequest = StatusRequest.failed;
       }
@@ -92,11 +96,10 @@ class HomeController extends GetxController {
     searchDoctor();
     update();
   }
-  
+
   @override
   void onInit() {
-   // getData();
+     getData();
     super.onInit();
   }
-  
 }
