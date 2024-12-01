@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_app/controller/profile_controller.dart';
 import 'package:health_app/core/constant/color.dart';
-import 'package:health_app/core/constant/imageassets.dart';
 import 'package:health_app/linkapi.dart';
 import 'package:health_app/view/widget/profile/customname.dart';
 import 'package:health_app/view/widget/profile/parametere.dart';

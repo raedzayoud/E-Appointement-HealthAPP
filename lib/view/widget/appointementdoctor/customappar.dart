@@ -36,9 +36,7 @@ class Customappar extends StatelessWidget implements PreferredSizeWidget {
                   ? [
                       IconButton(
                         icon: Icon(
-                            controller.loadFavouriteStatus(controller
-                                        .doctormodel!.doctorId
-                                        .toString()) ==
+                            controller.isFavourite ==
                                     false
                                 ? Icons.favorite_outline
                                 : Icons.favorite,

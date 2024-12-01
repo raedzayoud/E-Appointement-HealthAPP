@@ -10,7 +10,7 @@ class Parametere extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
-      height: 300,
+      height: 250,
       child: Card(
         color: AppColor.white,
         child: ListView(
@@ -38,6 +38,9 @@ class Parametere extends GetView<ProfileController> {
                         if (entry.key == "Logout") {
                           controller.goToLogin();
                         }
+                        if (entry.key == "Profile") {
+                          controller.goToProfile();
+                        }
                       },
                       child: Icon(entry.value, color: AppColor.primaycolor),
                     ),
@@ -46,6 +49,9 @@ class Parametere extends GetView<ProfileController> {
                       onTap: () {
                         if (entry.key == "Logout") {
                           controller.goToLogin();
+                        }
+                         if (entry.key == "Profile") {
+                          controller.goToProfile();
                         }
                       },
                       child: Text(

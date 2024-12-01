@@ -11,6 +11,13 @@ class FavouriteController extends GetxController {
   List<FavouriteModel> list = [];
   MyServices myServices = Get.find();
 
+  Map isfavorite = {};
+
+  setFavoutite(id, val) {
+    isfavorite[id] = val;
+    update();
+  }
+
   getData() async {
     statusRequest = StatusRequest.loading;
     update();

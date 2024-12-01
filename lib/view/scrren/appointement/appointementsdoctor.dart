@@ -91,16 +91,18 @@ class Appointementsdoctor extends StatelessWidget {
 
                     if (controller.selectedDay.weekday == DateTime.saturday ||
                         controller.selectedDay.weekday == DateTime.sunday) ...[
-                      Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: Get.width / 2,
-                          child: Text(
-                            "There are no appointments on these days",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                      Expanded(
+                        child: Center(
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: Get.width / 2,
+                            child: Text(
+                              "There are no appointments on these days",
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            ),
                           ),
                         ),
                       ),

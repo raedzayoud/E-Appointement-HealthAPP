@@ -9,4 +9,5 @@ class AppRoutes {
   static const String successappointement = "/successappointement";
   static const String recheduleappointement = "/Recheduleappointement";
   static const String comment="/comment";
+  static const String profileinfo="/profileinfo";
 }

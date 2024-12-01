@@ -10,6 +10,7 @@ import 'package:health_app/data/datasource/remote/comment_data.dart';
 import 'package:health_app/data/datasource/remote/favourite_data.dart';
 import 'package:health_app/data/model/commentmodel.dart';
 import 'package:health_app/data/model/doctormodel.dart';
+import 'package:health_app/data/model/favouritemodel.dart';
 
 class DoctordetailsController extends GetxController {
   Doctormodel? doctormodel;
@@ -20,6 +21,7 @@ class DoctordetailsController extends GetxController {
   FavouriteController controller = Get.find();
   List<CommentModel> list = [];
   CommentData commentData = CommentData(Get.find());
+  List<FavouriteModel> flist = [];
 
   Map DataDoctorDetails = {
     "Patients": "56",
@@ -27,24 +29,15 @@ class DoctordetailsController extends GetxController {
     "Rating": "4.0",
   };
 
-  // Save favorite status in shared preferences
-  Future<void> saveFavouriteStatus(String doctorId, bool status) async {
-    await myServices.sharedPreferences.setBool("favourite_$doctorId", status);
-  }
-
   // Load favorite status from shared preferences
   loadFavouriteStatus(String doctorId) {
-    isFavourite =
-        myServices.sharedPreferences.getBool("favourite_$doctorId") ?? false;
-    return isFavourite;
+    isFavourite = flist.any((f) => f.doctorId.toString() == doctorId);
+    
   }
 
   makeitFavourite(String doctorid) async {
     isFavourite = !isFavourite;
     update();
-
-    await saveFavouriteStatus(doctorid, isFavourite);
-
     if (isFavourite) {
       statusRequest = StatusRequest.loading;
       update();
@@ -129,6 +122,7 @@ class DoctordetailsController extends GetxController {
 
   @override
   void onInit() {
+    flist = controller.list;
     doctormodel = Get.arguments["doctormodel"];
     if (doctormodel != null) {
       loadFavouriteStatus(

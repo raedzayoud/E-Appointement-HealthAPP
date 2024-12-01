@@ -10,7 +10,8 @@ class Favourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(FavouriteController());
+    FavouriteController controller=  Get.put(FavouriteController());
+    controller.getData();
     return Scaffold(
       appBar: AppBar(
         title: Text(

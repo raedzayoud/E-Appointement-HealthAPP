@@ -9,6 +9,7 @@ import 'package:health_app/view/scrren/doctordetails.dart';
 import 'package:health_app/view/scrren/home.dart';
 import 'package:health_app/view/scrren/homescrren.dart';
 import 'package:health_app/view/scrren/appointement/recheduleappointement.dart';
+import 'package:health_app/view/scrren/profile/profileinfo.dart';
 import 'package:health_app/view/scrren/successappointement.dart';
 import 'package:health_app/view/scrren/typecategories.dart';
 
@@ -24,6 +25,7 @@ List<GetPage<dynamic>>? getPages = [
       name: AppRoutes.appoitementsSchedule, page: () => Appointementsdoctor()),
   GetPage(name: AppRoutes.typecategories, page: () => Typecategories()),
   GetPage(name: AppRoutes.comment, page: () => Comment()),
+  GetPage(name: AppRoutes.profileinfo, page: () => Profileinfo()),
   GetPage(
       name: AppRoutes.successappointement, page: () => Successappointement()),
 
