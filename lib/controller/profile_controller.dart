@@ -16,7 +16,12 @@ class ProfileController extends GetxController {
   };
 
   void goToProfile() {
-    Get.toNamed(AppRoutes.profileinfo);
+    Get.toNamed(AppRoutes.profileinfo,arguments: {
+      "Email":services.sharedPreferences.getString("email"),
+      "Telephone":services.sharedPreferences.getString("phone"),
+      "Age":services.sharedPreferences.getString("age"),
+      "username":services.sharedPreferences.getString("username"),
+    });
   }
 
   void goToLogin() {

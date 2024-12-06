@@ -1,5 +1,5 @@
 class AppLinkApi {
-  static String linkServeurName = "http://192.168.185.23/health";
+  static String linkServeurName = "http://192.168.53.120/health";
   //
 
   //===================================Image===================================//

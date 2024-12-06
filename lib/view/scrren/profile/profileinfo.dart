@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_app/controller/profileinfo_controller.dart';
 import 'package:health_app/core/constant/color.dart';
 import 'package:health_app/core/constant/imageassets.dart';
 
@@ -8,6 +9,7 @@ class Profileinfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  ProfileinfoController controller=  Get.put(ProfileinfoController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -31,12 +33,12 @@ class Profileinfo extends StatelessWidget {
             Container(
                 height: 150,
                 width: 150,
-                child: Image.asset(AppImageassets.profile)),
+                child: Image.asset(AppImageassets.person)),
             SizedBox(
               height: 60,
             ),
             Text(
-              "Zayoud Raed",
+              "${controller.username}",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Divider(),
@@ -49,7 +51,7 @@ class Profileinfo extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Email : "),
-                    Text("raed.zayoud.23@gmail.com")
+                    Text("${controller.email}")
                   ],
                 ),
                 SizedBox(
@@ -57,14 +59,14 @@ class Profileinfo extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text("Telephone : "), Text("+216 27740388")],
+                  children: [Text("Telephone : "), Text("+216 ${controller.telephone}")],
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text("Age : "), Text("20 years old")],
+                  children: [Text("Age : "), Text("${controller.age} years old")],
                 )
               ],
             )

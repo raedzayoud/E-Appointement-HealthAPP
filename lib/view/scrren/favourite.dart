@@ -10,7 +10,7 @@ class Favourite extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FavouriteController controller=  Get.put(FavouriteController());
+    FavouriteController controller = Get.find();
     controller.getData();
     return Scaffold(
       appBar: AppBar(
@@ -37,9 +37,7 @@ class Favourite extends StatelessWidget {
                         itemCount: controller.list.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () {
-                              //controller.goToDoctorDetails(doctor);
-                            },
+                            onTap: () {},
                             child: Card(
                               color: AppColor.white,
                               margin: EdgeInsets.symmetric(vertical: 5),
@@ -82,8 +80,26 @@ class Favourite extends StatelessWidget {
                                             Container(
                                               margin: EdgeInsets.only(
                                                   left: 10, right: 10),
-                                              child: Icon(Icons.star,
-                                                  color: Colors.yellow),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 20),
+                                                    child: Text(
+                                                      controller.list[index]
+                                                                  .doctorRating !=
+                                                              0.00
+                                                          ? controller
+                                                              .list[index]
+                                                              .doctorRating!.toStringAsFixed(
+                                                                  2)
+                                                          : "N/A",
+                                                    ),
+                                                  ),
+                                                  Icon(Icons.star,
+                                                      color: Colors.yellow),
+                                                ],
+                                              ),
                                             ),
                                             Text(
                                                 "Reviews (${controller.list[index].doctorReview})"),

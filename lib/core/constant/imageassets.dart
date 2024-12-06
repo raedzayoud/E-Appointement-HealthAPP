@@ -16,6 +16,7 @@ class AppImageassets {
    static const String doctor9 = "$rootImages/doctor7.png";
    static const String secondlogo = "$rootImages/logo.png";
    static const String profile = "$rootImages/raed.jpg";
+   static const String person = "$rootImages/person.png";
    //lottie
    static const String loading = "$rootLottie/loading.json";
    static const String nodata = "$rootLottie/nodata.json";
